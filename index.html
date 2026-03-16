@@ -69,6 +69,48 @@ a {
   margin: 24px auto 48px;
 }
 
+.site-footer {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin-top: 28px;
+  padding: 14px 18px 16px 22px;
+  border: 1px solid rgba(69, 48, 30, 0.12);
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(255, 251, 245, 0.82), rgba(241, 230, 214, 0.72));
+  box-shadow: 0 18px 42px rgba(70, 46, 25, 0.08);
+  color: var(--ink-soft);
+  font-size: 0.84rem;
+  line-height: 1.45;
+  backdrop-filter: blur(16px);
+}
+
+.site-footer::before {
+  content: "";
+  width: 10px;
+  align-self: stretch;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--series-1), var(--series-3) 52%, var(--series-2));
+  opacity: 0.8;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.site-footer a {
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 120ms ease, color 120ms ease;
+}
+
+.site-footer a:hover {
+  color: var(--ink);
+  border-color: rgba(24, 20, 17, 0.25);
+}
+
 .hero {
   position: relative;
   overflow: hidden;
@@ -666,6 +708,12 @@ a {
     width: min(100% - 20px, 960px);
   }
 
+  .site-footer {
+    gap: 6px 12px;
+    padding: 12px 14px 14px 16px;
+    font-size: 0.8rem;
+  }
+
   .hero::before {
     inset: 18px 18px auto 18px;
     width: auto;
@@ -861,6 +909,10 @@ a {
     </section>
 
     <main id="grid" class="grid" aria-live="polite"></main>
+
+    <footer class="site-footer">
+      <p>Desarrollo: Jorge Cardiel (kyberkritik). Convierte tu biblioteca en una estantería digital navegable. Contacto: <a href="mailto:semsocan2019@gmail.com">semsocan2019@gmail.com</a></p>
+    </footer>
   </div>
 
   <script>
