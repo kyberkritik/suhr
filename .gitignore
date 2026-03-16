@@ -1,0 +1,16 @@
+.DS_Store
+__pycache__/
+*.pyc
+
+# Fuentes y utilidades de generación no necesarias para publicar el sitio
+Bibliotheca Cardiel.rdf
+build_library_page.py
+download_cover_backups.py
+probe_cover_sources.py
+cover-overrides.json
+cover-search-report.json
+cover-search-report.md
+
+# Material de proceso y referencias visuales
+screenshots/
+portadas/*.original.*
