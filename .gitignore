@@ -7,9 +7,11 @@ Bibliotheca Cardiel.rdf
 build_library_page.py
 download_cover_backups.py
 probe_cover_sources.py
+lookup_original_years.py
 cover-overrides.json
 cover-search-report.json
 cover-search-report.md
+original-years.json
 
 # Material de proceso y referencias visuales
 screenshots/
