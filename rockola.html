@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bibliotheca Suhrkamp de Jorge Cardiel · Carrusel</title>
-  <meta name="description" content="Carrusel y retícula de portadas de la biblioteca personal de Jorge Cardiel.">
+  <title>Biblioteca Cardiel · Rockola de Portadas</title>
+  <meta name="description" content="Rockola y retícula de portadas para la colección Suhrkamp de Biblioteca Cardiel.">
   <style>
 @import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;600;700&family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&display=swap");
 
@@ -19,12 +19,6 @@
   --ink-soft: rgba(248, 241, 226, 0.72);
   --accent: #efb35a;
   --accent-cool: #7cc6d9;
-  --series-1: #c4672f;
-  --series-2: #2551b6;
-  --series-3: #0d7668;
-  --series-4: #8a2d1b;
-  --series-5: #79611c;
-  --series-6: #725e4d;
   --shadow: 0 30px 90px rgba(0, 0, 0, 0.4);
   --radius-xl: 34px;
   --radius-lg: 24px;
@@ -72,47 +66,7 @@ a {
   position: relative;
   height: 100%;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
-}
-
-.site-footer {
-  position: relative;
-  z-index: 1;
-  margin: 0 18px 18px;
-  padding: 12px 16px 14px 18px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 18px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(8, 16, 24, 0.34));
-  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.22);
-  color: var(--ink-soft);
-  font-size: 0.8rem;
-  line-height: 1.45;
-  backdrop-filter: blur(18px);
-}
-
-.site-footer::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 4px;
-  border-radius: 18px 0 0 18px;
-  background: linear-gradient(180deg, var(--accent-cool), var(--accent));
-  opacity: 0.8;
-}
-
-.site-footer p {
-  margin: 0;
-}
-
-.site-footer a {
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 120ms ease, color 120ms ease;
-}
-
-.site-footer a:hover {
-  color: var(--ink);
-  border-color: rgba(248, 241, 226, 0.35);
+  grid-template-rows: auto minmax(0, 1fr);
 }
 
 .topbar {
@@ -122,26 +76,10 @@ a {
   justify-content: space-between;
   align-items: center;
   gap: 16px;
-  padding: 28px 24px 18px;
+  padding: 18px 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   background: linear-gradient(180deg, rgba(8, 16, 24, 0.84), rgba(8, 16, 24, 0.48));
   backdrop-filter: blur(20px);
-}
-
-.topbar::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 10px;
-  background: linear-gradient(
-    90deg,
-    var(--series-1) 0 18%,
-    var(--series-2) 18% 36%,
-    var(--series-3) 36% 54%,
-    var(--series-4) 54% 72%,
-    var(--series-5) 72% 86%,
-    var(--series-6) 86% 100%
-  );
 }
 
 .brand small {
@@ -157,7 +95,6 @@ a {
   font-family: "Fraunces", Georgia, serif;
   font-size: clamp(1.4rem, 2vw, 2rem);
   letter-spacing: -0.03em;
-  line-height: 1.02;
 }
 
 .topbar-actions {
@@ -192,12 +129,11 @@ a {
 
 .back-link {
   border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.07);
 }
 
 .viewport {
   position: relative;
-  z-index: 2;
   padding: 18px;
   min-height: 0;
 }
@@ -485,32 +421,14 @@ a {
   .topbar {
     flex-direction: column;
     align-items: stretch;
-    padding: 14px 16px 12px;
-    gap: 10px;
-  }
-
-  .topbar::before {
-    height: 6px;
-  }
-
-  .brand strong {
-    font-size: clamp(1.2rem, 5vw, 1.6rem);
   }
 
   .topbar-actions {
     flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .view-switcher button,
-  .back-link {
-    padding: 9px 14px;
-    font-size: 0.9rem;
   }
 
   .viewport {
-    min-height: 640px;
-    padding: 12px;
+    min-height: 960px;
   }
 
   .view {
@@ -518,65 +436,11 @@ a {
   }
 
   .flow-stage {
-    inset: 14px 14px 230px;
-  }
-
-  .flow-hud {
-    inset: auto 14px 14px;
-    gap: 12px;
-  }
-
-  .info-panel {
-    padding: 14px 16px;
-    border-radius: 20px;
-  }
-
-  .info-panel h2 {
-    font-size: clamp(1.3rem, 4.5vw, 2rem);
-    margin: 6px 0 3px;
+    inset: 18px 18px 260px;
   }
 
   .quilt-stage {
-    inset: 14px;
-  }
-
-  .site-footer {
-    margin: 0 12px 12px;
-    padding: 11px 14px 13px 16px;
-    font-size: 0.76rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .topbar-actions {
-    justify-content: space-between;
-  }
-
-  .view-switcher {
-    flex: 1;
-    justify-content: center;
-  }
-
-  .flow-stage {
-    inset: 12px 12px 220px;
-  }
-
-  .flow-hud {
-    inset: auto 12px 12px;
-    gap: 10px;
-  }
-
-  .info-panel {
-    padding: 12px 14px;
-  }
-
-  .info-author,
-  .info-fine {
-    font-size: 0.9rem;
-  }
-
-  .info-meta span {
-    font-size: 0.8rem;
+    inset: 18px;
   }
 }
 </style>
@@ -586,23 +450,23 @@ a {
     <!-- Presentación pública: sin copy instruccional visible; la lógica y contexto quedan en el generador. -->
     <header class="topbar">
       <div class="brand">
-        <small>Bibliotheca Suhrkamp · biblioteca personal de Jorge Cardiel</small>
-        <strong>Carrusel de portadas</strong>
+        <small>Biblioteca Cardiel · portadas en movimiento</small>
+        <strong>Rockola Suhrkamp</strong>
       </div>
       <div class="topbar-actions">
         <div class="view-switcher" aria-label="Cambiar visualización">
-          <button class="is-active" type="button" data-view-target="flow">Carrusel</button>
+          <button class="is-active" type="button" data-view-target="flow">Rockola</button>
           <button type="button" data-view-target="quilt">Retícula total</button>
         </div>
-        <a class="back-link" href="index.html">Volver al mosaico editorial</a>
+        <a class="back-link" href="index.html">Volver al mosaico</a>
       </div>
     </header>
 
     <main class="viewport">
-      <section class="view is-active" data-view-panel="flow" aria-label="Vista carrusel">
+      <section class="view is-active" data-view-panel="flow" aria-label="Vista rockola">
         <div class="flow-shell">
           <div id="flow-stage" class="flow-stage"></div>
-          <div class="status-pill" id="flow-status">1 / 49</div>
+          <div class="status-pill" id="flow-status">1 / 47</div>
           <div class="flow-hud">
             <section id="info-panel" class="info-panel"></section>
             <aside class="wheel-panel" aria-hidden="true">
@@ -619,66 +483,19 @@ a {
 
       <section class="view" data-view-panel="quilt" aria-label="Vista retícula total">
         <div class="quilt-shell">
-          <div class="status-pill" id="quilt-status">49 portadas</div>
+          <div class="status-pill" id="quilt-status">47 portadas</div>
           <div id="quilt-stage" class="quilt-stage"></div>
         </div>
       </section>
     </main>
 
-    <footer class="site-footer">
-      <p>Desarrollo: Jorge Cardiel (kyberkritik). Convierte tu biblioteca en una estantería digital navegable. Contacto: <a href="mailto:semsocan2019@gmail.com">semsocan2019@gmail.com</a></p>
-    </footer>
-
     <div id="tooltip" class="tooltip" aria-hidden="true"></div>
   </div>
 
   <script>
-    const META = {"unique_books":49};
+    const META = {"unique_books":47};
     const BOOKS = [{"index":0,"id":"978-3-518-07605-7","title":"Philosophische Grammatik","short_title":"","creator_label":"Ludwig Wittgenstein, Rush Rhees","year_label":"1973","series":"Suhrkamp Taschenbuch Wissenschaft","series_line":"Suhrkamp Taschenbuch Wissenschaft 5","series_badge":"stw 5","series_key":"suhrkamp-taschenbuch-wissenschaft","series_order":1,"edition":"","pages":490,"pages_label":"490 pp.","publisher_display":"Suhrkamp · Frankfurt a.M.","cover_url":"cover-backups/978-3-518-07605-7.jpg","cover_kind":"provisional","source_label":"Google Books"},{"index":1,"id":"978-3-518-27614-3","title":"Das wilde Denken","short_title":"","creator_label":"Claude Lévi-Strauss","year_label":"2022","series":"Suhrkamp Taschenbuch Wissenschaft","series_line":"Suhrkamp Taschenbuch Wissenschaft 14","series_badge":"stw 14","series_key":"suhrkamp-taschenbuch-wissenschaft","series_order":1,"edition":"20. Auflage","pages":333,"pages_label":"333 pp.","publisher_display":"Suhrkamp · Frankfurt am Main","cover_url":"cover-backups/978-3-518-27614-3.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":2,"id":"978-3-518-07806-8","title":"Theorietechnik und Moral","short_title":"","creator_label":"Niklas Luhmann, Stephan H. Pfürtner","year_label":"1978","series":"Suhrkamp Taschenbuch Wissenschaft","series_line":"Suhrkamp Taschenbuch Wissenschaft 206","series_badge":"stw 206","series_key":"suhrkamp-taschenbuch-wissenschaft","series_order":1,"edition":"1. Aufl","pages":266,"pages_label":"266 pp.","publisher_display":"Suhrkamp · Frankfurt am Main","cover_url":"cover-backups/978-3-518-07806-8.jpg","cover_kind":"provisional","source_label":"Open Library"},{"index":3,"id":"978-3-518-28266-3","title":"Soziale Systeme: Grundriß einer allgemeinen Theorie","short_title":"Soziale Systeme","creator_label":"Niklas Luhmann","year_label":"2021","series":"Suhrkamp Taschenbuch Wissenschaft","series_line":"Suhrkamp Taschenbuch Wissenschaft 666","series_badge":"stw 666","series_key":"suhrkamp-taschenbuch-wissenschaft","series_order":1,"edition":"18. Auflage","pages":674,"pages_label":"674 pp.","publisher_display":"Suhrkamp · Frankfurt am Main","cover_url":"cover-backups/978-3-518-28266-3.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":4,"id":"978-3-518-28357-8","title":"Vergangene Zukunft: zur Semantik geschichtlicher Zeiten","short_title":"Vergangene Zukunft","creator_label":"Reinhart Koselleck","year_label":"2025","series":"Suhrkamp Taschenbuch Wissenschaft","series_line":"Suhrkamp Taschenbuch Wissenschaft 757","series_badge":"stw 757","series_key":"suhrkamp-taschenbuch-wissenschaft","series_order":1,"edition":"13. Auflage","pages":388,"pages_label":"388 pp.","publisher_display":"Suhrkamp · Frankfurt am Main","cover_url":"cover-backups/978-3-518-28357-8.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":5,"id":"978-3-518-28448-3","title":"Reden und Schweigen","short_title":"","creator_label":"Niklas Luhmann, Peter Fuchs","year_label":"1989","series":"Suhrkamp Taschenbuch Wissenschaft","series_line":"Suhrkamp Taschenbuch Wissenschaft 848","series_badge":"stw 848","series_key":"suhrkamp-taschenbuch-wissenschaft","series_order":1,"edition":"1. Aufl","pages":227,"pages_label":"227 pp.","publisher_display":"Suhrkamp · Frankfurt am Main","cover_url":"cover-backups/978-3-518-28448-3.jpg","cover_kind":"provisional","source_label":"Open Library"},{"index":6,"id":"978-3-518-28476-6","title":"Wissen und Gewissen: Versuch einer Brücke","short_title":"Wissen und Gewissen","creator_label":"Heinz Von Foerster","year_label":"2011","series":"Suhrkamp Taschenbuch Wissenschaft","series_line":"Suhrkamp Taschenbuch Wissenschaft 876","series_badge":"stw 876","series_key":"suhrkamp-taschenbuch-wissenschaft","series_order":1,"edition":"1. Aufl., [Nachdr.]","pages":396,"pages_label":"396 pp.","publisher_display":"Suhrkamp · Frankfurt am Main","cover_url":"cover-backups/978-3-518-28476-6.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":7,"id":"978-3-518-28601-2","title":"Die Wissenschaft der Gesellschaft","short_title":"","creator_label":"Niklas Luhmann","year_label":"2018","series":"Suhrkamp Taschenbuch Wissenschaft","series_line":"Suhrkamp Taschenbuch Wissenschaft 1001","series_badge":"stw 1001","series_key":"suhrkamp-taschenbuch-wissenschaft","series_order":1,"edition":"8. Auflage","pages":732,"pages_label":"732 pp.","publisher_display":"Suhrkamp · Frankfurt am Main","cover_url":"cover-backups/978-3-518-28601-2.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":8,"id":"978-3-518-28903-7","title":"Die Kunst der Gesellschaft","short_title":"","creator_label":"Niklas Luhmann","year_label":"2020","series":"Suhrkamp Taschenbuch Wissenschaft","series_line":"Suhrkamp Taschenbuch Wissenschaft 1303","series_badge":"stw 1303","series_key":"suhrkamp-taschenbuch-wissenschaft","series_order":1,"edition":"10. Auflage","pages":517,"pages_label":"517 pp.","publisher_display":"Suhrkamp · Frankfurt am Main","cover_url":"cover-backups/978-3-518-28903-7.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":9,"id":"978-3-518-28903-7","title":"Die Kunst der Gesellschaft","short_title":"","creator_label":"Niklas Luhmann","year_label":"1997","series":"Suhrkamp Taschenbuch Wissenschaft","series_line":"Suhrkamp Taschenbuch Wissenschaft 1303","series_badge":"stw 1303","series_key":"suhrkamp-taschenbuch-wissenschaft","series_order":1,"edition":"1. Auflage","pages":517,"pages_label":"517 pp.","publisher_display":"Suhrkamp · Frankfurt am Main","cover_url":"cover-backups/978-3-518-28903-7.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":10,"id":"978-3-518-29154-2","title":"Rundfunk als Hörkunst und weitere Aufsätze zum Hörfunk","short_title":"","creator_label":"Rudolf Arnheim, Helmut H. Diederichs","year_label":"2001","series":"Suhrkamp Taschenbuch Wissenschaft","series_line":"Suhrkamp Taschenbuch Wissenschaft 1554","series_badge":"stw 1554","series_key":"suhrkamp-taschenbuch-wissenschaft","series_order":1,"edition":"1. Auflage","pages":236,"pages_label":"236 pp.","publisher_display":"Suhrkamp · Frankfurt am Main","cover_url":"cover-backups/978-3-518-29154-2.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":11,"id":"978-3-518-29296-9","title":"Bourdieu und Luhmann: ein Theorienvergleich","short_title":"Bourdieu und Luhmann","creator_label":"Armin Nassehi, Gerd Nollmann","year_label":"2016","series":"Suhrkamp Taschenbuch Wissenschaft","series_line":"Suhrkamp Taschenbuch Wissenschaft 1696","series_badge":"stw 1696","series_key":"suhrkamp-taschenbuch-wissenschaft","series_order":1,"edition":"3. Auflage","pages":271,"pages_label":"271 pp.","publisher_display":"Suhrkamp · Frankfurt am Main","cover_url":"cover-backups/978-3-518-29296-9.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":12,"id":"978-3-518-29364-5","title":"Am Nullpunkt: Positionen der russischen Avantgarde","short_title":"Am Nullpunkt","creator_label":"Boris Grojs, Aage A. Hansen-Löve, Anne von der Heiden","year_label":"2016","series":"Suhrkamp Taschenbuch Wissenschaft","series_line":"Suhrkamp Taschenbuch Wissenschaft 1764","series_badge":"stw 1764","series_key":"suhrkamp-taschenbuch-wissenschaft","series_order":1,"edition":"2. Auflage","pages":0,"pages_label":"","publisher_display":"Suhrkamp · Frankfurt am Main","cover_url":"cover-backups/978-3-518-29364-5.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":13,"id":"978-3-518-29472-7","title":"Schriften zu Kunst und Literatur","short_title":"","creator_label":"Niklas Luhmann, Niels Weber","year_label":"2008","series":"Suhrkamp Taschenbuch Wissenschaft","series_line":"Suhrkamp Taschenbuch Wissenschaft 1872","series_badge":"stw 1872","series_key":"suhrkamp-taschenbuch-wissenschaft","series_order":1,"edition":"1. Aufl","pages":490,"pages_label":"490 pp.","publisher_display":"Suhrkamp · Frankfurt am Main","cover_url":"cover-backups/978-3-518-29472-7.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":14,"id":"978-3-518-29644-8","title":"Die Kraft der Kunst","short_title":"","creator_label":"Christoph Menke","year_label":"2013","series":"Suhrkamp Taschenbuch Wissenschaft","series_line":"Suhrkamp Taschenbuch Wissenschaft 2044","series_badge":"stw 2044","series_key":"suhrkamp-taschenbuch-wissenschaft","series_order":1,"edition":"Erste Auflage","pages":179,"pages_label":"179 pp.","publisher_display":"Suhrkamp · Berlin","cover_url":"cover-backups/978-3-518-29644-8.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":15,"id":"978-3-518-30069-5","title":"Führung und Gefolgschaft: Management im Nationalsozialismus und in der Demokratie","short_title":"Führung und Gefolgschaft","creator_label":"Stefan Kühl","year_label":"2025","series":"Suhrkamp Taschenbuch Wissenschaft","series_line":"Suhrkamp Taschenbuch Wissenschaft 2469","series_badge":"stw 2469","series_key":"suhrkamp-taschenbuch-wissenschaft","series_order":1,"edition":"Erste Auflage, Originalausgabe","pages":265,"pages_label":"265 pp.","publisher_display":"Suhrkamp · Berlin","cover_url":"cover-backups/978-3-518-30069-5.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":16,"id":"978-3-518-30079-4","title":"Kybernetik und Kritik: eine Theorie digitaler Regierungskunst","short_title":"Kybernetik und Kritik","creator_label":"Anna-Verena Nosthoff","year_label":"2026","series":"Suhrkamp Taschenbuch Wissenschaft","series_line":"Suhrkamp Taschenbuch Wissenschaft 2479","series_badge":"stw 2479","series_key":"suhrkamp-taschenbuch-wissenschaft","series_order":1,"edition":"Erste Auflage, Originalausgabe","pages":671,"pages_label":"671 pp.","publisher_display":"Suhrkamp · Berlin","cover_url":"cover-backups/978-3-518-30079-4.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":17,"id":"978-3-518-06507-5","title":"Lektüre für Minuten: Gedanken aus seinen Büchern; u. Briefen","short_title":"Lektüre für Minuten","creator_label":"Hermann Hesse, Volker Michels","year_label":"1971","series":"Suhrkamp Taschenbuch","series_line":"Suhrkamp Taschenbuch 7","series_badge":"st 7","series_key":"suhrkamp-taschenbuch","series_order":2,"edition":"","pages":228,"pages_label":"228 pp.","publisher_display":"Suhrkamp · Frankfurt a. M.","cover_url":"cover-backups/978-3-518-06507-5.jpg","cover_kind":"provisional","source_label":"Open Library"},{"index":18,"id":"978-3-518-36675-2","title":"Der Steppenwolf: Erzählung","short_title":"Der Steppenwolf","creator_label":"Hermann Hesse","year_label":"2017","series":"Suhrkamp Taschenbuch","series_line":"Suhrkamp Taschenbuch 175","series_badge":"st 175","series_key":"suhrkamp-taschenbuch","series_order":2,"edition":"57. Aufl","pages":277,"pages_label":"277 pp.","publisher_display":"Suhrkamp · Frankfurt am Main","cover_url":"cover-backups/978-3-518-36675-2.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":19,"id":"978-3-518-06885-4","title":"Hermann Hesse: sein Leben und sein Werk","short_title":"Hermann Hesse","creator_label":"Hugo Ball","year_label":"1978","series":"Suhrkamp Taschenbuch","series_line":"Suhrkamp Taschenbuch 385","series_badge":"st 385","series_key":"suhrkamp-taschenbuch","series_order":2,"edition":"Zweite Auflage","pages":193,"pages_label":"193 pp.","publisher_display":"Suhrkamp · Frankfurt am Main","cover_url":"cover-backups/978-3-518-06885-4.jpg","cover_kind":"provisional","source_label":"Open Library"},{"index":20,"id":"978-3-518-37333-0","title":"Die tausend Träume von Stellavista und andere Vermilion-Sands-Stories","short_title":"","creator_label":"J. G. Ballard, Alfred Scholz, J. G. Ballard","year_label":"1982","series":"Suhrkamp Taschenbuch","series_line":"Suhrkamp Taschenbuch 833","series_badge":"st 833","series_key":"suhrkamp-taschenbuch","series_order":2,"edition":"","pages":202,"pages_label":"202 pp.","publisher_display":"Suhrkamp · Frankfurt (Main)","cover_url":"cover-backups/978-3-518-37333-0.jpg","cover_kind":"provisional","source_label":"Open Library"},{"index":21,"id":"978-3-518-38251-6","title":"Das Heilige und das Profane: vom Wesen des Religiösen","short_title":"Das Heilige und das Profane","creator_label":"Mircea Eliade","year_label":"1997","series":"Suhrkamp Taschenbuch","series_line":"Suhrkamp Taschenbuch 1751","series_badge":"st 1751","series_key":"suhrkamp-taschenbuch","series_order":2,"edition":"1. Aufl., [4. Dr.]","pages":188,"pages_label":"188 pp.","publisher_display":"Suhrkamp · Frankfurt am Main","cover_url":"cover-backups/978-3-518-38251-6.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":22,"id":"978-3-518-38346-9","title":"Dreigroschenroman","short_title":"","creator_label":"Bertolt Brecht","year_label":"2018","series":"Suhrkamp Taschenbuch","series_line":"Suhrkamp Taschenbuch 1846","series_badge":"st 1846","series_key":"suhrkamp-taschenbuch","series_order":2,"edition":"9. Auflage","pages":391,"pages_label":"391 pp.","publisher_display":"Suhrkamp · Frankfurt am Main","cover_url":"cover-backups/978-3-518-38346-9.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":23,"id":"978-3-518-39629-2","title":"Flüchtlingsgespräche","short_title":"","creator_label":"Bertolt Brecht","year_label":"2016","series":"Suhrkamp Taschenbuch","series_line":"Suhrkamp Taschenbuch 3129","series_badge":"st 3129","series_key":"suhrkamp-taschenbuch","series_order":2,"edition":"Erweiterte Ausgabe, 5. Auflage","pages":147,"pages_label":"147 pp.","publisher_display":"Suhrkamp · Frankfurt am Main","cover_url":"cover-backups/978-3-518-39629-2.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":24,"id":"978-3-518-39954-5","title":"Benjamin und Brecht: die Geschichte einer Freundschaft: mit einer Chronik und den Gesprächsprotokollen des Zeitschriftenprojekts \"Krise und Kritik\"","short_title":"Benjamin und Brecht","creator_label":"Erdmut Wizisla","year_label":"2004","series":"Suhrkamp Taschenbuch","series_line":"Suhrkamp Taschenbuch 3454","series_badge":"st 3454","series_key":"suhrkamp-taschenbuch","series_order":2,"edition":"1. Ausg","pages":395,"pages_label":"395 pp.","publisher_display":"Suhrkamp · Frankfurt am Main","cover_url":"cover-backups/978-3-518-39954-5.jpg","cover_kind":"provisional","source_label":"Google Books"},{"index":25,"id":"978-3-518-46163-1","title":"Über die Verborgenheit der Gesundheit: Aufsätze und Vorträge","short_title":"Über die Verborgenheit der Gesundheit","creator_label":"Hans-Georg Gadamer","year_label":"2010","series":"Suhrkamp Taschenbuch","series_line":"Suhrkamp Taschenbuch 4163","series_badge":"st 4163","series_key":"suhrkamp-taschenbuch","series_order":2,"edition":"1. Aufl","pages":213,"pages_label":"213 pp.","publisher_display":"Suhrkamp · Frankfurt am Main","cover_url":"cover-backups/978-3-518-46163-1.jpg","cover_kind":"provisional","source_label":"Google Books"},{"index":26,"id":"978-3-518-46892-0","title":"Nach Gott","short_title":"","creator_label":"Peter Sloterdijk","year_label":"2018","series":"Suhrkamp Taschenbuch","series_line":"Suhrkamp Taschenbuch 4892","series_badge":"st 4892","series_key":"suhrkamp-taschenbuch","series_order":2,"edition":"","pages":364,"pages_label":"364 pp.","publisher_display":"Suhrkamp · Berlin","cover_url":"cover-backups/978-3-518-46892-0.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":27,"id":"978-3-518-47145-6","title":"Der futurologische Kongreß: aus Ijon Tichys Erinnerungen","short_title":"Der futurologische Kongreß","creator_label":"Stanisław Lem","year_label":"2021","series":"Suhrkamp Taschenbuch","series_line":"Suhrkamp Taschenbuch 5145","series_badge":"st 5145","series_key":"suhrkamp-taschenbuch","series_order":2,"edition":"Erste Auflage dieser Ausgabe","pages":138,"pages_label":"138 pp.","publisher_display":"Suhrkamp · Berlin","cover_url":"cover-backups/978-3-518-47145-6.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":28,"id":"978-3-518-10229-9","title":"Die Dreigroschenoper: der Erstdruck 1928: Text und Materialien","short_title":"Die Dreigroschenoper","creator_label":"Bertolt Brecht, Elisabeth Hauptmann, Kurt Weill","year_label":"2025","series":"Suhrkamp Taschenbuch","series_line":"Suhrkamp Taschenbuch 5503","series_badge":"st 5503","series_key":"suhrkamp-taschenbuch","series_order":2,"edition":"Erste Auflage, Neuausgabe","pages":129,"pages_label":"129 pp.","publisher_display":"Suhrkamp · Berlin","cover_url":"cover-backups/978-3-518-10229-9.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":29,"id":"978-3-518-46431-1","title":"Berlin bei Nacht: Neue Geschichten","short_title":"Berlin bei Nacht","creator_label":"Susanne Gretter","year_label":"2013","series":"Suhrkamp Taschenbuch","series_line":"Suhrkamp Taschenbuch","series_badge":"st","series_key":"suhrkamp-taschenbuch","series_order":2,"edition":"","pages":271,"pages_label":"271 pp.","publisher_display":"Suhrkamp · Berlin","cover_url":"cover-backups/978-3-518-46431-1.jpg","cover_kind":"provisional","source_label":"Google Books"},{"index":30,"id":"978-3-518-00646-7","title":"Die Expressionismusdebatte: Materialien zu einer marxistischen Realismuskonzeption","short_title":"Die Expressionismusdebatte","creator_label":"Hans-Jürgen Schmitt","year_label":"1973","series":"Edition Suhrkamp","series_line":"Edition Suhrkamp 646","series_badge":"es 646","series_key":"edition-suhrkamp","series_order":3,"edition":"1. Auflage","pages":337,"pages_label":"337 pp.","publisher_display":"Suhrkamp · Frankfurt am Main","cover_url":"cover-backups/978-3-518-00646-7.jpg","cover_kind":"provisional","source_label":"Google Books"},{"index":31,"id":"978-3-518-11297-7","title":"Peter Sloterdijks \"Kritik der zynischen Vernunft\"","short_title":"","creator_label":"Otto Kallscheuer","year_label":"2008","series":"Edition Suhrkamp","series_line":"Edition Suhrkamp 1297","series_badge":"es 1297","series_key":"edition-suhrkamp","series_order":3,"edition":"Erstausg., 1. Aufl., [Nachdr.]","pages":387,"pages_label":"387 pp.","publisher_display":"Suhrkamp · Frankfurt am Main","cover_url":"cover-backups/978-3-518-11297-7.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":32,"id":"978-3-518-11514-5","title":"Die politische Ontologie Martin Heideggers","short_title":"","creator_label":"Pierre Bourdieu","year_label":"2015","series":"Edition Suhrkamp","series_line":"Edition Suhrkamp 1514","series_badge":"es 1514","series_key":"edition-suhrkamp","series_order":3,"edition":"3. Auflage","pages":158,"pages_label":"158 pp.","publisher_display":"Suhrkamp · Frankfurt am Main","cover_url":"cover-backups/978-3-518-11514-5.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":33,"id":"978-3-518-12485-7","title":"Die Fiktion der wahrscheinlichen Realität","short_title":"","creator_label":"Elena Esposito","year_label":"2023","series":"Edition Suhrkamp","series_line":"Edition Suhrkamp 2485","series_badge":"es 2485","series_key":"edition-suhrkamp","series_order":3,"edition":"5. Auflage, Originalausgabe","pages":127,"pages_label":"127 pp.","publisher_display":"Suhrkamp · Frankfurt am Main","cover_url":"cover-backups/978-3-518-12485-7.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":34,"id":"978-3-518-18859-0","title":"Todesfuge und andere Gedichte","short_title":"","creator_label":"Paul Celan, Barbara Wiedemann","year_label":"2021","series":"Suhrkamp-BasisBibliothek","series_line":"Suhrkamp-BasisBibliothek 59","series_badge":"bb 59","series_key":"suhrkamp-basisbibliothek","series_order":4,"edition":"6. Auflage, Originalausgabe","pages":185,"pages_label":"185 pp.","publisher_display":"Suhrkamp · Frankfurt am Main","cover_url":"cover-backups/978-3-518-18859-0.jpg","cover_kind":"provisional","source_label":"Google Books"},{"index":35,"id":"978-3-518-02999-2","title":"Survival of the Richest: warum wir vor den Tech-Milliardären nicht einmal auf dem Mars sicher sind","short_title":"Survival of the Richest","creator_label":"Douglas Rushkoff","year_label":"2025","series":"Edition Suhrkamp Sonderdruck","series_line":"Edition Suhrkamp Sonderdruck","series_badge":"es-sd","series_key":"edition-suhrkamp-sonderdruck","series_order":5,"edition":"Deutsche Erstausgabe","pages":282,"pages_label":"282 pp.","publisher_display":"Suhrkamp · Berlin","cover_url":"cover-backups/978-3-518-02999-2.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":36,"id":"978-3-518-58830-7","title":"Post-: Nachruf auf eine Vorsilbe","short_title":"Post-","creator_label":"Dieter Thomä","year_label":"2025","series":"Sin serie","series_line":"Sin serie","series_badge":"sin-serie","series_key":"sin-serie","series_order":99,"edition":"Erste Auflage, Originalausgabe","pages":398,"pages_label":"398 pp.","publisher_display":"Suhrkamp · Berlin","cover_url":"cover-backups/978-3-518-58830-7.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":37,"id":"978-3-518-29777-3","title":"Wozu Theorie? Aufsätze","short_title":"Wozu Theorie?","creator_label":"Dirk Baecker","year_label":"2016","series":"Sin serie","series_line":"Sin serie","series_badge":"sin-serie","series_key":"sin-serie","series_order":99,"edition":"1st ed","pages":1,"pages_label":"1 pp.","publisher_display":"Suhrkamp Verlag · Berlin","cover_url":"cover-backups/978-3-518-29777-3.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":38,"id":"978-3-518-45981-2","title":"Warum Denken traurig macht: zehn (mögliche) Gründe","short_title":"Warum Denken traurig macht","creator_label":"George Steiner","year_label":"2017","series":"Sin serie","series_line":"Sin serie","series_badge":"sin-serie","series_key":"sin-serie","series_order":99,"edition":"10. Auflage","pages":124,"pages_label":"124 pp.","publisher_display":"Suhrkamp-Verlag · Berlin","cover_url":"cover-backups/978-3-518-45981-2.jpg","cover_kind":"provisional","source_label":"Google Books"},{"index":39,"id":"978-3-518-12625-7","title":"Der Mensch ohne Inhalt","short_title":"","creator_label":"Giorgio Agamben","year_label":"2012","series":"Sin serie","series_line":"Sin serie","series_badge":"sin-serie","series_key":"sin-serie","series_order":99,"edition":"2nd ed","pages":1,"pages_label":"1 pp.","publisher_display":"Suhrkamp Verlag · Berlin","cover_url":"cover-backups/978-3-518-12625-7.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":40,"id":"registro-33","title":"Dialektik des Konkreten","short_title":"","creator_label":"Karel Kosik","year_label":"1970","series":"Sin serie","series_line":"Sin serie","series_badge":"sin-serie","series_key":"sin-serie","series_order":99,"edition":"","pages":0,"pages_label":"","publisher_display":"Suhrkamp","cover_url":"portadas/dialektik-des-konkreten.jpg","cover_kind":"local","source_label":"Foto local"},{"index":41,"id":"978-3-518-12303-4","title":"Soundcultures: über elektronische und digitale Musik","short_title":"Soundcultures","creator_label":"Marcus S. Kleiner, Achim Szepanski","year_label":"2003","series":"Sin serie","series_line":"Sin serie","series_badge":"sin-serie","series_key":"sin-serie","series_order":99,"edition":"1. Aufl","pages":238,"pages_label":"238 pp.","publisher_display":"Suhrkamp · Frankfurt","cover_url":"cover-backups/978-3-518-12303-4.jpg","cover_kind":"provisional","source_label":"Open Library"},{"index":42,"id":"978-3-518-28691-3","title":"Gesellschaftsstruktur und Semantik: Studien zur Wissenssoziologie der modernen Gesellschaft. Band 1","short_title":"Gesellschaftsstruktur und Semantik","creator_label":"Niklas Luhmann","year_label":"2010","series":"Sin serie","series_line":"Sin serie","series_badge":"sin-serie","series_key":"sin-serie","series_order":99,"edition":"1st ed","pages":1,"pages_label":"1 pp.","publisher_display":"Suhrkamp Verlag · Berlin","cover_url":"cover-backups/978-3-518-28691-3.jpg","cover_kind":"provisional","source_label":"Open Library"},{"index":43,"id":"978-3-518-29038-5","title":"Gesellschaftsstruktur und Semantik: Studien zur Wissenssoziologie der modernen Gesellschaft. Band 4","short_title":"Gesellschaftsstruktur und Semantik","creator_label":"Niklas Luhmann","year_label":"2016","series":"Sin serie","series_line":"Sin serie","series_badge":"sin-serie","series_key":"sin-serie","series_order":99,"edition":"1st ed","pages":1,"pages_label":"1 pp.","publisher_display":"Suhrkamp Verlag · Berlin","cover_url":"cover-backups/978-3-518-29038-5.jpg","cover_kind":"official","source_label":"Suhrkamp"},{"index":44,"id":"978-3-518-42435-3","title":"Die schrecklichen Kinder der Neuzeit: über das anti-genealogische Experiment der Moderne","short_title":"Die schrecklichen Kinder der Neuzeit","creator_label":"Peter Sloterdijk","year_label":"2014","series":"Sin serie","series_line":"Sin serie","series_badge":"sin-serie","series_key":"sin-serie","series_order":99,"edition":"Erste Auflage","pages":489,"pages_label":"489 pp.","publisher_display":"Suhrkamp · Berlin","cover_url":"cover-backups/978-3-518-42435-3.jpg","cover_kind":"provisional","source_label":"Google Books"},{"index":45,"id":"978-3-518-42507-7","title":"Was geschah im 20. Jahrhundert?","short_title":"","creator_label":"Peter Sloterdijk","year_label":"2016","series":"Sin serie","series_line":"Sin serie","series_badge":"sin-serie","series_key":"sin-serie","series_order":99,"edition":"Erste Auflage","pages":348,"pages_label":"348 pp.","publisher_display":"Suhrkamp · Berlin","cover_url":"cover-backups/978-3-518-42507-7.png","cover_kind":"provisional","source_label":"Google Books"},{"index":46,"id":"registro-16","title":"Versuche über Brecht","short_title":"","creator_label":"Walter Benjamin","year_label":"1966","series":"Sin serie","series_line":"Sin serie","series_badge":"sin-serie","series_key":"sin-serie","series_order":99,"edition":"","pages":0,"pages_label":"","publisher_display":"Suhrkamp","cover_url":"cover-backups/versuche-uber-brecht.jpg","cover_kind":"provisional","source_label":"Open Library"}];
-    BOOKS.splice(36, 0, {
-      index: 36,
-      id: "978-3-518-58452-1",
-      title: "Der soziologische Diskurs der Moderne",
-      short_title: "",
-      creator_label: "Armin Nassehi",
-      year_label: "2006",
-      series: "Sin serie",
-      series_line: "Suhrkamp Wissenschaft Hauptprogramm",
-      series_badge: "sin-serie",
-      series_key: "sin-serie",
-      series_order: 99,
-      edition: "1. Auflage",
-      pages: 502,
-      pages_label: "502 pp.",
-      publisher_display: "Suhrkamp · Frankfurt am Main",
-      cover_url: "cover-backups/978-3-518-58452-1.jpg",
-      cover_kind: "official",
-      source_label: "Suhrkamp",
-    });
-    BOOKS.splice(37, 0, {
-      index: 37,
-      id: "978-3-518-58833-8",
-      title: "Situation und Konstellation",
-      short_title: "",
-      creator_label: "Hartmut Rosa",
-      year_label: "2026",
-      series: "Sin serie",
-      series_line: "Suhrkamp Wissenschaft Hauptprogramm",
-      series_badge: "sin-serie",
-      series_key: "sin-serie",
-      series_order: 99,
-      edition: "1. Auflage",
-      pages: 247,
-      pages_label: "247 pp.",
-      publisher_display: "Suhrkamp Verlag · Berlin",
-      cover_url: "cover-backups/978-3-518-58833-8.jpg",
-      cover_kind: "official",
-      source_label: "Suhrkamp",
-    });
-    BOOKS.forEach((book, index) => {
-      book.index = index;
-    });
-
+    
 const state = {
   view: "flow",
   activeIndex: 0,
@@ -1016,37 +833,6 @@ window.addEventListener("resize", () => {
   renderFlow();
   renderQuilt();
 });
-
-(function attachTouchSwipe() {
-  let touchStartX = 0;
-  let touchStartY = 0;
-  const SWIPE_THRESHOLD = 48;
-
-  const flowShell = document.querySelector(".flow-shell");
-  if (!flowShell) {
-    return;
-  }
-
-  flowShell.addEventListener("touchstart", (event) => {
-    touchStartX = event.touches[0].clientX;
-    touchStartY = event.touches[0].clientY;
-  }, { passive: true });
-
-  flowShell.addEventListener("touchend", (event) => {
-    const deltaX = event.changedTouches[0].clientX - touchStartX;
-    const deltaY = event.changedTouches[0].clientY - touchStartY;
-    if (Math.abs(deltaX) < SWIPE_THRESHOLD || Math.abs(deltaX) < Math.abs(deltaY)) {
-      return;
-    }
-    state.hoverIndex = null;
-    if (deltaX < 0) {
-      state.activeIndex = wrapIndex(state.activeIndex + 1);
-    } else {
-      state.activeIndex = wrapIndex(state.activeIndex - 1);
-    }
-    renderFlow();
-  }, { passive: true });
-}());
 
 renderFlow();
 renderQuilt();

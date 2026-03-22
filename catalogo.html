@@ -1,0 +1,994 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bibliotheca Cardiel · Catálogo Suhrkamp</title>
+  <meta name="description" content="Catálogo en tarjetas de la Colección Suhrkamp de Bibliotheca Cardiel.">
+  <style>
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;600;700&family=IBM+Plex+Sans+Condensed:wght@400;500;600;700&display=swap");
+
+:root {
+  --paper: #f4efe7;
+  --paper-deep: #ece1cf;
+  --ink: #181411;
+  --ink-soft: #5e5349;
+  --ink-faint: #9e8e82;
+  --line: rgba(53, 39, 27, 0.14);
+  --card-bg: rgba(255, 252, 246, 0.96);
+  --accent: #914d1b;
+  --shadow-sm: 0 2px 8px rgba(70, 46, 25, 0.07);
+  --shadow-md: 0 8px 28px rgba(70, 46, 25, 0.13);
+  --shadow-lg: 0 28px 64px rgba(70, 46, 25, 0.22);
+  --header-h: 60px;
+  --footer-h: 44px;
+  --stw-c: #2551b6;
+  --st-c:  #c4672f;
+  --es-c:  #0d7668;
+  --bb-c:  #8a2d1b;
+  --es-sd-c: #79611c;
+  --other-c: #725e4d;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; height: 100%; }
+
+body {
+  min-height: 100%;
+  font-family: "IBM Plex Sans Condensed", "Avenir Next Condensed", "Arial Narrow", sans-serif;
+  background:
+    radial-gradient(ellipse at top left, rgba(201,98,45,.16) 0%, transparent 38%),
+    radial-gradient(ellipse at top right, rgba(20,84,92,.15) 0%, transparent 30%),
+    linear-gradient(180deg, #f5f0e7 0%, #ede3d3 60%, #e7daca 100%);
+  background-attachment: fixed;
+  color: var(--ink);
+}
+
+/* ===== HEADER ===== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  height: var(--header-h);
+  background: rgba(244, 239, 231, 0.92);
+  backdrop-filter: blur(16px) saturate(1.3);
+  border-bottom: 1px solid var(--line);
+  box-shadow: 0 1px 12px rgba(70,46,25,.08);
+}
+
+.header-inner {
+  height: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 0 20px;
+  max-width: 100%;
+}
+
+.header-brand {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+.header-owner {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.header-section {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.header-search-wrap {
+  position: relative;
+  max-width: 460px;
+  width: 100%;
+  justify-self: center;
+}
+.header-search {
+  width: 100%;
+  height: 36px;
+  padding: 0 12px 0 36px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255,255,255,.72);
+  font-family: inherit;
+  font-size: 0.88rem;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 120ms, box-shadow 120ms;
+}
+.header-search:focus {
+  border-color: rgba(53,39,27,.28);
+  box-shadow: 0 0 0 3px rgba(145,77,27,.12);
+}
+.search-icon {
+  position: absolute;
+  left: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+.sort-select {
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255,255,255,.6);
+  font-family: inherit;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  cursor: pointer;
+  outline: none;
+}
+.book-count-badge {
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+  font-weight: 600;
+}
+
+/* ===== FILTER BAR ===== */
+.filter-bar {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 190;
+  padding: 8px 16px;
+  background: rgba(244, 239, 231, 0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  gap: 6px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.filter-bar::-webkit-scrollbar { display: none; }
+
+.filter-btn {
+  flex-shrink: 0;
+  height: 28px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255,255,255,.5);
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: background 100ms, color 100ms, border-color 100ms;
+  white-space: nowrap;
+}
+.filter-btn:hover {
+  background: rgba(255,255,255,.85);
+  color: var(--ink);
+}
+.filter-btn.is-active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: transparent;
+}
+.filter-btn.series--suhrkamp-taschenbuch-wissenschaft.is-active { background: var(--stw-c); }
+.filter-btn.series--suhrkamp-taschenbuch.is-active { background: var(--st-c); }
+.filter-btn.series--edition-suhrkamp.is-active { background: var(--es-c); }
+.filter-btn.series--suhrkamp-basisbibliothek.is-active { background: var(--bb-c); }
+.filter-btn.series--edition-suhrkamp-sonderdruck.is-active { background: var(--es-sd-c); }
+.filter-count { opacity: 0.65; font-weight: 400; }
+
+/* ===== CATALOG GRID ===== */
+.catalog-main {
+  padding: 16px;
+  min-height: calc(100vh - var(--header-h) - var(--footer-h) - 44px);
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+  gap: 14px;
+}
+
+.no-results {
+  grid-column: 1/-1;
+  text-align: center;
+  padding: 80px 24px;
+  color: var(--ink-faint);
+  font-size: 1rem;
+}
+
+/* ===== BOOK CARD ===== */
+.book-card {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 140ms ease, box-shadow 140ms ease;
+  box-shadow: var(--shadow-sm);
+}
+.book-card:hover {
+  transform: translateY(-4px) scale(1.015);
+  box-shadow: var(--shadow-md);
+  z-index: 2;
+}
+.book-card:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Series accent strip */
+.card-accent {
+  height: 4px;
+  background: var(--series-c, var(--other-c));
+}
+.book-card.series--suhrkamp-taschenbuch-wissenschaft .card-accent { background: var(--stw-c); }
+.book-card.series--suhrkamp-taschenbuch .card-accent { background: var(--st-c); }
+.book-card.series--edition-suhrkamp .card-accent { background: var(--es-c); }
+.book-card.series--suhrkamp-basisbibliothek .card-accent { background: var(--bb-c); }
+.book-card.series--edition-suhrkamp-sonderdruck .card-accent { background: var(--es-sd-c); }
+.book-card.series--sin-serie .card-accent { background: var(--other-c); }
+
+/* Cover */
+.card-cover-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--paper-deep);
+}
+.card-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 200ms;
+}
+.card-cover.is-loading { opacity: 0; }
+
+.card-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 12px;
+  text-align: center;
+  background: var(--ph-bg, var(--other-c));
+  color: rgba(255,255,255,0.92);
+}
+.book-card.series--suhrkamp-taschenbuch-wissenschaft .card-placeholder { background: var(--stw-c); }
+.book-card.series--suhrkamp-taschenbuch .card-placeholder { background: var(--st-c); }
+.book-card.series--edition-suhrkamp .card-placeholder { background: var(--es-c); }
+.book-card.series--suhrkamp-basisbibliothek .card-placeholder { background: var(--bb-c); }
+.book-card.series--edition-suhrkamp-sonderdruck .card-placeholder { background: var(--es-sd-c); }
+.book-card.series--sin-serie .card-placeholder { background: var(--other-c); }
+
+.ph-badge {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.65;
+  margin-bottom: 10px;
+}
+.ph-title {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+.ph-author {
+  font-size: 0.7rem;
+  opacity: 0.75;
+  line-height: 1.3;
+}
+
+/* Card info block */
+.card-info {
+  padding: 9px 10px 10px;
+}
+.card-apa {
+  font-size: 0.69rem;
+  line-height: 1.42;
+  color: var(--ink-soft);
+}
+.card-apa em {
+  font-style: italic;
+  color: var(--ink);
+  font-weight: 600;
+}
+.card-series-badge {
+  display: inline-block;
+  margin-top: 5px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--paper-deep);
+  color: var(--ink-faint);
+}
+
+/* ===== MODAL ===== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  background: rgba(24, 20, 17, 0.55);
+  backdrop-filter: blur(10px) saturate(1.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fade-in 140ms ease;
+}
+.modal-backdrop.is-hidden { display: none; }
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal {
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+  max-width: 860px;
+  width: 100%;
+  max-height: 92vh;
+  overflow-y: auto;
+  animation: slide-up 160ms ease;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(53,39,27,.2) transparent;
+}
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-close {
+  position: sticky;
+  top: 0;
+  float: right;
+  margin: 12px 12px -44px 0;
+  z-index: 10;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(24,20,17,.12);
+  color: var(--ink);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 100ms;
+}
+.modal-close:hover { background: rgba(24,20,17,.22); }
+
+.modal-body {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 0;
+}
+
+.modal-cover-col {
+  padding: 28px 0 28px 28px;
+}
+.modal-cover {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: var(--shadow-md);
+  display: block;
+}
+.modal-cover-placeholder {
+  width: 100%;
+  aspect-ratio: 3/4;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  color: rgba(255,255,255,.9);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+.modal-cover-credit {
+  margin-top: 8px;
+  font-size: 0.65rem;
+  color: var(--ink-faint);
+  line-height: 1.4;
+}
+
+.modal-nav {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+.modal-nav-btn {
+  flex: 1;
+  height: 30px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255,255,255,.5);
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: background 100ms;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.modal-nav-btn:hover { background: rgba(255,255,255,.9); }
+.modal-nav-btn:disabled { opacity: .35; cursor: default; }
+
+.modal-detail-col {
+  padding: 28px 28px 28px 24px;
+}
+
+.modal-series-line {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 6px;
+}
+.modal-title {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+.modal-subtitle {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+}
+
+.modal-apa {
+  background: rgba(53,39,27,.05);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  padding: 10px 14px;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+}
+.modal-apa em { font-style: italic; color: var(--ink); }
+
+.modal-meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 5px 14px;
+  font-size: 0.78rem;
+  margin-bottom: 16px;
+}
+.modal-meta dt {
+  color: var(--ink-faint);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.modal-meta dd {
+  color: var(--ink-soft);
+}
+
+.modal-section-title {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 6px;
+}
+.modal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 14px;
+}
+.modal-tag {
+  font-size: 0.7rem;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: rgba(53,39,27,.07);
+  color: var(--ink-soft);
+}
+.modal-abstract {
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+}
+.modal-attachments {
+  font-size: 0.75rem;
+  color: var(--ink-faint);
+  margin-top: 4px;
+}
+.modal-attachment-item::before {
+  content: "📄 ";
+}
+
+/* ===== FOOTER ===== */
+.site-footer {
+  height: var(--footer-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-top: 1px solid var(--line);
+  background: rgba(244,239,231,.8);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  gap: 12px;
+}
+.footer-brand { font-weight: 600; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 680px) {
+  .book-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+  }
+  .header-inner {
+    grid-template-columns: 1fr auto;
+  }
+  .header-brand .header-section { font-size: 0.9rem; }
+  .header-search-wrap { display: none; }
+  .modal-body {
+    grid-template-columns: 1fr;
+  }
+  .modal-cover-col {
+    padding: 20px 20px 0;
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  .modal-nav { margin-top: 0; }
+  .modal-detail-col { padding: 16px 20px 20px; }
+  .modal-title { font-size: 1.1rem; }
+}
+
+@media (min-width: 1800px) {
+  .book-grid { gap: 18px; }
+  .catalog-main { padding: 20px; }
+}
+@media (min-width: 2400px) {
+  .book-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 22px;
+  }
+  .catalog-main { padding: 24px; }
+}
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-brand">
+        <span class="header-owner">Bibliotheca Cardiel</span>
+        <span class="header-section">Colección Suhrkamp</span>
+      </div>
+      <div class="header-search-wrap">
+        <svg class="search-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
+          <circle cx="6.5" cy="6.5" r="4.5"/><path d="m10.5 10.5 3 3"/>
+        </svg>
+        <input class="header-search" id="searchInput" type="search"
+               placeholder="Buscar título, autor, serie, ISBN…" autocomplete="off">
+      </div>
+      <div class="header-controls">
+        <select class="sort-select" id="sortSelect">
+          <option value="author">Autor A–Z</option>
+          <option value="series">Por serie</option>
+          <option value="year-asc">Año ↑</option>
+          <option value="year-desc">Año ↓</option>
+          <option value="title">Título A–Z</option>
+        </select>
+        <span class="book-count-badge" id="bookCountBadge">47 títulos</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="filter-bar" id="filterBar">
+    <button class="filter-btn is-active" data-series="all">Todas</button>
+<button class="filter-btn series--suhrkamp-taschenbuch-wissenschaft" data-series="Suhrkamp Taschenbuch Wissenschaft">Suhrkamp Taschenbuch Wissenschaft <span class="filter-count">(17)</span></button>
+<button class="filter-btn series--suhrkamp-taschenbuch" data-series="Suhrkamp Taschenbuch">Suhrkamp Taschenbuch <span class="filter-count">(13)</span></button>
+<button class="filter-btn series--edition-suhrkamp" data-series="Edition Suhrkamp">Edition Suhrkamp <span class="filter-count">(4)</span></button>
+<button class="filter-btn series--suhrkamp-basisbibliothek" data-series="Suhrkamp-BasisBibliothek">Suhrkamp-BasisBibliothek <span class="filter-count">(1)</span></button>
+<button class="filter-btn series--edition-suhrkamp-sonderdruck" data-series="Edition Suhrkamp Sonderdruck">Edition Suhrkamp Sonderdruck <span class="filter-count">(1)</span></button>
+<button class="filter-btn series--sin-serie" data-series="Sin serie">Sin serie <span class="filter-count">(11)</span></button>
+
+  </div>
+
+  <main class="catalog-main">
+    <div class="book-grid" id="bookGrid"></div>
+  </main>
+
+  <footer class="site-footer">
+    <span class="footer-brand">Bibliotheca Cardiel · Colección Suhrkamp</span>
+    <span>Generado 2026-03-22 13:43 · 47 títulos</span>
+  </footer>
+
+  <div class="modal-backdrop is-hidden" id="modalBackdrop" role="dialog" aria-modal="true" aria-label="Ficha de libro">
+    <div class="modal" id="modal">
+      <button class="modal-close" id="modalClose" aria-label="Cerrar">✕</button>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    const BOOKS = [{"id":"978-3-518-07605-7","title":"Philosophische Grammatik","short_title":"","authors":["Ludwig Wittgenstein","Rush Rhees"],"editors":[],"translators":[],"contributors":[],"creator_label":"Ludwig Wittgenstein, Rush Rhees","series":"Suhrkamp Taschenbuch Wissenschaft","series_key":"suhrkamp-taschenbuch-wissenschaft","series_number":5,"series_badge":"stw 5","series_order":1,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt a.M.","publisher_display":"Suhrkamp · Frankfurt a.M.","year":1973,"year_label":"1973","edition":"","pages":490,"pages_label":"490 pp.","language":"sin dato","library_catalog":"Library of Congress ISBN","primary_isbn":"978-3-518-07605-7","isbns":["978-3-518-07605-7"],"subjects":["B3376.W563 P526 1973"],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-07605-7.jpg","cover_kind":"provisional","source_label":"Google Books","apa7":"Wittgenstein, Ludwig y Rhees, Rush (1973). Philosophische Grammatik. Suhrkamp, Frankfurt a.M..","title_sort":"philosophische grammatik","creator_sort":"wittgenstein, ludwig"},{"id":"978-3-518-27614-3","title":"Das wilde Denken","short_title":"","authors":["Claude Lévi-Strauss"],"editors":[],"translators":["Hans Naumann"],"contributors":[],"creator_label":"Claude Lévi-Strauss","series":"Suhrkamp Taschenbuch Wissenschaft","series_key":"suhrkamp-taschenbuch-wissenschaft","series_number":14,"series_badge":"stw 14","series_order":1,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt am Main","publisher_display":"Suhrkamp · Frankfurt am Main","year":2022,"year_label":"2022","edition":"20. Auflage","pages":333,"pages_label":"333 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-27614-3","isbns":["978-3-518-27614-3"],"subjects":[],"abstract":"","attachments":["Lévi-Strauss and Naumann - 2022 - Das wilde Denken.pdf"],"cover_url":"cover-backups/978-3-518-27614-3.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Lévi-Strauss, Claude (2022). Das wilde Denken (20. Auflage. ed.). [Naumann, Hans, Trad.] Suhrkamp, Frankfurt am Main.","title_sort":"das wilde denken","creator_sort":"levi-strauss, claude"},{"id":"978-3-518-07806-8","title":"Theorietechnik und Moral","short_title":"","authors":[],"editors":["Niklas Luhmann","Stephan H. Pfürtner"],"translators":[],"contributors":[],"creator_label":"Niklas Luhmann, Stephan H. Pfürtner","series":"Suhrkamp Taschenbuch Wissenschaft","series_key":"suhrkamp-taschenbuch-wissenschaft","series_number":206,"series_badge":"stw 206","series_order":1,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt am Main","publisher_display":"Suhrkamp · Frankfurt am Main","year":1978,"year_label":"1978","edition":"1. Aufl","pages":266,"pages_label":"266 pp.","language":"sin dato","library_catalog":"Library of Congress ISBN","primary_isbn":"978-3-518-07806-8","isbns":["978-3-518-07806-8"],"subjects":["BJ51 .T48"],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-07806-8.jpg","cover_kind":"provisional","source_label":"Open Library","apa7":"Luhmann, Niklas y Pfürtner, Stephan H. (Eds.) (1978). Theorietechnik und Moral (1. Aufl. ed.). Suhrkamp, Frankfurt am Main.","title_sort":"theorietechnik und moral","creator_sort":"luhmann, niklas"},{"id":"978-3-518-28266-3","title":"Soziale Systeme: Grundriß einer allgemeinen Theorie","short_title":"Soziale Systeme","authors":["Niklas Luhmann"],"editors":[],"translators":[],"contributors":[],"creator_label":"Niklas Luhmann","series":"Suhrkamp Taschenbuch Wissenschaft","series_key":"suhrkamp-taschenbuch-wissenschaft","series_number":666,"series_badge":"stw 666","series_order":1,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt am Main","publisher_display":"Suhrkamp · Frankfurt am Main","year":2021,"year_label":"2021","edition":"18. Auflage","pages":674,"pages_label":"674 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-28266-3","isbns":["978-3-518-28266-3"],"subjects":[],"abstract":"","attachments":["Luhmann - 2021 - Soziale Systeme Grundriß einer allgemeinen Theorie.pdf"],"cover_url":"cover-backups/978-3-518-28266-3.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Luhmann, Niklas (2021). Soziale Systeme: Grundriß einer allgemeinen Theorie (18. Auflage. ed.). Suhrkamp, Frankfurt am Main.","title_sort":"soziale systeme: grundriß einer allgemeinen theorie","creator_sort":"luhmann, niklas"},{"id":"978-3-518-28357-8","title":"Vergangene Zukunft: zur Semantik geschichtlicher Zeiten","short_title":"Vergangene Zukunft","authors":["Reinhart Koselleck"],"editors":[],"translators":[],"contributors":[],"creator_label":"Reinhart Koselleck","series":"Suhrkamp Taschenbuch Wissenschaft","series_key":"suhrkamp-taschenbuch-wissenschaft","series_number":757,"series_badge":"stw 757","series_order":1,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt am Main","publisher_display":"Suhrkamp · Frankfurt am Main","year":2025,"year_label":"2025","edition":"13. Auflage","pages":388,"pages_label":"388 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-28357-8","isbns":["978-3-518-28357-8"],"subjects":[],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-28357-8.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Koselleck, Reinhart (2025). Vergangene Zukunft: zur Semantik geschichtlicher Zeiten (13. Auflage. ed.). Suhrkamp, Frankfurt am Main.","title_sort":"vergangene zukunft: zur semantik geschichtlicher zeiten","creator_sort":"koselleck, reinhart"},{"id":"978-3-518-28448-3","title":"Reden und Schweigen","short_title":"","authors":["Niklas Luhmann","Peter Fuchs"],"editors":[],"translators":[],"contributors":[],"creator_label":"Niklas Luhmann, Peter Fuchs","series":"Suhrkamp Taschenbuch Wissenschaft","series_key":"suhrkamp-taschenbuch-wissenschaft","series_number":848,"series_badge":"stw 848","series_order":1,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt am Main","publisher_display":"Suhrkamp · Frankfurt am Main","year":1989,"year_label":"1989","edition":"1. Aufl","pages":227,"pages_label":"227 pp.","language":"sin dato","library_catalog":"Library of Congress ISBN","primary_isbn":"978-3-518-28448-3","isbns":["978-3-518-28448-3"],"subjects":["B650 .L79 1989"],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-28448-3.jpg","cover_kind":"provisional","source_label":"Open Library","apa7":"Luhmann, Niklas y Fuchs, Peter (1989). Reden und Schweigen (1. Aufl. ed.). Suhrkamp, Frankfurt am Main.","title_sort":"reden und schweigen","creator_sort":"luhmann, niklas"},{"id":"978-3-518-28476-6","title":"Wissen und Gewissen: Versuch einer Brücke","short_title":"Wissen und Gewissen","authors":["Heinz Von Foerster"],"editors":[],"translators":[],"contributors":[],"creator_label":"Heinz Von Foerster","series":"Suhrkamp Taschenbuch Wissenschaft","series_key":"suhrkamp-taschenbuch-wissenschaft","series_number":876,"series_badge":"stw 876","series_order":1,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt am Main","publisher_display":"Suhrkamp · Frankfurt am Main","year":2011,"year_label":"2011","edition":"1. Aufl., [Nachdr.]","pages":396,"pages_label":"396 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-28476-6","isbns":["978-3-518-28476-6"],"subjects":[],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-28476-6.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Foerster, Heinz Von (2011). Wissen und Gewissen: Versuch einer Brücke (1. Aufl., [Nachdr.]. ed.). Suhrkamp, Frankfurt am Main.","title_sort":"wissen und gewissen: versuch einer brucke","creator_sort":"foerster, heinz von"},{"id":"978-3-518-28601-2","title":"Die Wissenschaft der Gesellschaft","short_title":"","authors":["Niklas Luhmann"],"editors":[],"translators":[],"contributors":[],"creator_label":"Niklas Luhmann","series":"Suhrkamp Taschenbuch Wissenschaft","series_key":"suhrkamp-taschenbuch-wissenschaft","series_number":1001,"series_badge":"stw 1001","series_order":1,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt am Main","publisher_display":"Suhrkamp · Frankfurt am Main","year":2018,"year_label":"2018","edition":"8. Auflage","pages":732,"pages_label":"732 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-28601-2","isbns":["978-3-518-28601-2"],"subjects":[],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-28601-2.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Luhmann, Niklas (2018). Die Wissenschaft der Gesellschaft (8. Auflage. ed.). Suhrkamp, Frankfurt am Main.","title_sort":"die wissenschaft der gesellschaft","creator_sort":"luhmann, niklas"},{"id":"978-3-518-28903-7","title":"Die Kunst der Gesellschaft","short_title":"","authors":["Niklas Luhmann"],"editors":[],"translators":[],"contributors":[],"creator_label":"Niklas Luhmann","series":"Suhrkamp Taschenbuch Wissenschaft","series_key":"suhrkamp-taschenbuch-wissenschaft","series_number":1303,"series_badge":"stw 1303","series_order":1,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt am Main","publisher_display":"Suhrkamp · Frankfurt am Main","year":2020,"year_label":"2020","edition":"10. Auflage","pages":517,"pages_label":"517 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-28903-7","isbns":["978-3-518-28903-7"],"subjects":[],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-28903-7.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Luhmann, Niklas (2020). Die Kunst der Gesellschaft (10. Auflage. ed.). Suhrkamp, Frankfurt am Main.","title_sort":"die kunst der gesellschaft","creator_sort":"luhmann, niklas"},{"id":"978-3-518-28903-7","title":"Die Kunst der Gesellschaft","short_title":"","authors":["Niklas Luhmann"],"editors":[],"translators":[],"contributors":[],"creator_label":"Niklas Luhmann","series":"Suhrkamp Taschenbuch Wissenschaft","series_key":"suhrkamp-taschenbuch-wissenschaft","series_number":1303,"series_badge":"stw 1303","series_order":1,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt am Main","publisher_display":"Suhrkamp · Frankfurt am Main","year":1997,"year_label":"1997","edition":"1. Auflage","pages":517,"pages_label":"517 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-28903-7","isbns":["978-3-518-28903-7"],"subjects":[],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-28903-7.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Luhmann, Niklas (1997). Die Kunst der Gesellschaft (1. Auflage. ed.). Suhrkamp, Frankfurt am Main.","title_sort":"die kunst der gesellschaft","creator_sort":"luhmann, niklas"},{"id":"978-3-518-29154-2","title":"Rundfunk als Hörkunst und weitere Aufsätze zum Hörfunk","short_title":"","authors":["Rudolf Arnheim","Helmut H. Diederichs"],"editors":[],"translators":[],"contributors":[],"creator_label":"Rudolf Arnheim, Helmut H. Diederichs","series":"Suhrkamp Taschenbuch Wissenschaft","series_key":"suhrkamp-taschenbuch-wissenschaft","series_number":1554,"series_badge":"stw 1554","series_order":1,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt am Main","publisher_display":"Suhrkamp · Frankfurt am Main","year":2001,"year_label":"2001","edition":"1. Auflage","pages":236,"pages_label":"236 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-29154-2","isbns":["978-3-518-29154-2"],"subjects":[],"abstract":"","attachments":["Arnheim and Diederichs - 2001 - Rundfunk als Hörkunst und weitere Aufsätze zum Hörfunk.pdf"],"cover_url":"cover-backups/978-3-518-29154-2.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Arnheim, Rudolf y Diederichs, Helmut H. (2001). Rundfunk als Hörkunst und weitere Aufsätze zum Hörfunk (1. Auflage. ed.). Suhrkamp, Frankfurt am Main.","title_sort":"rundfunk als horkunst und weitere aufsatze zum horfunk","creator_sort":"arnheim, rudolf"},{"id":"978-3-518-29296-9","title":"Bourdieu und Luhmann: ein Theorienvergleich","short_title":"Bourdieu und Luhmann","authors":[],"editors":["Armin Nassehi","Gerd Nollmann"],"translators":[],"contributors":[],"creator_label":"Armin Nassehi, Gerd Nollmann","series":"Suhrkamp Taschenbuch Wissenschaft","series_key":"suhrkamp-taschenbuch-wissenschaft","series_number":1696,"series_badge":"stw 1696","series_order":1,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt am Main","publisher_display":"Suhrkamp · Frankfurt am Main","year":2016,"year_label":"2016","edition":"3. Auflage","pages":271,"pages_label":"271 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-29296-9","isbns":["978-3-518-29296-9"],"subjects":[],"abstract":"","attachments":["Nassehi and Nollmann - 2016 - Bourdieu und Luhmann ein Theorienvergleich.pdf"],"cover_url":"cover-backups/978-3-518-29296-9.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Nassehi, Armin y Nollmann, Gerd (Eds.) (2016). Bourdieu und Luhmann: ein Theorienvergleich (3. Auflage. ed.). Suhrkamp, Frankfurt am Main.","title_sort":"bourdieu und luhmann: ein theorienvergleich","creator_sort":"nassehi, armin"},{"id":"978-3-518-29364-5","title":"Am Nullpunkt: Positionen der russischen Avantgarde","short_title":"Am Nullpunkt","authors":[],"editors":["Boris Grojs","Aage A. Hansen-Löve","Anne von der Heiden"],"translators":["Gabriele Leupold","Annelore Nitschke","Olga Radetzkaja"],"contributors":[],"creator_label":"Boris Grojs, Aage A. Hansen-Löve, Anne von der Heiden","series":"Suhrkamp Taschenbuch Wissenschaft","series_key":"suhrkamp-taschenbuch-wissenschaft","series_number":1764,"series_badge":"stw 1764","series_order":1,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt am Main","publisher_display":"Suhrkamp · Frankfurt am Main","year":2016,"year_label":"2016","edition":"2. Auflage","pages":null,"pages_label":"","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-29364-5","isbns":["978-3-518-29364-5"],"subjects":[],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-29364-5.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Grojs, Boris, Hansen-Löve, Aage A., y Heiden, Anne von der (Eds.) (2016). Am Nullpunkt: Positionen der russischen Avantgarde (2. Auflage. ed.). [Leupold, Gabriele, Nitschke, Annelore, y Radetzkaja, Olga, Trad.] Suhrkamp, Frankfurt am Main.","title_sort":"am nullpunkt: positionen der russischen avantgarde","creator_sort":"grojs, boris"},{"id":"978-3-518-29472-7","title":"Schriften zu Kunst und Literatur","short_title":"","authors":["Niklas Luhmann","Niels Weber"],"editors":[],"translators":[],"contributors":[],"creator_label":"Niklas Luhmann, Niels Weber","series":"Suhrkamp Taschenbuch Wissenschaft","series_key":"suhrkamp-taschenbuch-wissenschaft","series_number":1872,"series_badge":"stw 1872","series_order":1,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt am Main","publisher_display":"Suhrkamp · Frankfurt am Main","year":2008,"year_label":"2008","edition":"1. Aufl","pages":490,"pages_label":"490 pp.","language":"sin dato","library_catalog":"Library of Congress ISBN","primary_isbn":"978-3-518-29472-7","isbns":["978-3-518-29472-7"],"subjects":["N72.S6 L84 2008"],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-29472-7.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Luhmann, Niklas y Weber, Niels (2008). Schriften zu Kunst und Literatur (1. Aufl. ed.). Suhrkamp, Frankfurt am Main.","title_sort":"schriften zu kunst und literatur","creator_sort":"luhmann, niklas"},{"id":"978-3-518-29644-8","title":"Die Kraft der Kunst","short_title":"","authors":["Christoph Menke"],"editors":[],"translators":[],"contributors":[],"creator_label":"Christoph Menke","series":"Suhrkamp Taschenbuch Wissenschaft","series_key":"suhrkamp-taschenbuch-wissenschaft","series_number":2044,"series_badge":"stw 2044","series_order":1,"publisher_name":"Suhrkamp","publisher_city":"Berlin","publisher_display":"Suhrkamp · Berlin","year":2013,"year_label":"2013","edition":"Erste Auflage","pages":179,"pages_label":"179 pp.","language":"sin dato","library_catalog":"Library of Congress ISBN","primary_isbn":"978-3-518-29644-8","isbns":["978-3-518-29644-8"],"subjects":["BH39 .M4493 2013"],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-29644-8.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Menke, Christoph (2013). Die Kraft der Kunst (Erste Auflage. ed.). Suhrkamp, Berlin.","title_sort":"die kraft der kunst","creator_sort":"menke, christoph"},{"id":"978-3-518-30069-5","title":"Führung und Gefolgschaft: Management im Nationalsozialismus und in der Demokratie","short_title":"Führung und Gefolgschaft","authors":["Stefan Kühl"],"editors":[],"translators":[],"contributors":[],"creator_label":"Stefan Kühl","series":"Suhrkamp Taschenbuch Wissenschaft","series_key":"suhrkamp-taschenbuch-wissenschaft","series_number":2469,"series_badge":"stw 2469","series_order":1,"publisher_name":"Suhrkamp","publisher_city":"Berlin","publisher_display":"Suhrkamp · Berlin","year":2025,"year_label":"2025","edition":"Erste Auflage, Originalausgabe","pages":265,"pages_label":"265 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-30069-5","isbns":["978-3-518-30069-5"],"subjects":[],"abstract":"Moderne Managementkonzepte zeigen überraschende Parallelen zu nationalsozialistischen Vorstellungen. In seinem neuen Buch argumentiert Stefan Kühl, dass diese Ähnlichkeiten nicht auf personalen Kontinuitäten vom NS-Staat zur Bundesrepublik beruhen. Gerade prominente Nationalsozialisten, die den Führungsdiskurs in der Nachkriegszeit prägten, mussten darauf achten, nicht mit der NS-Ideologie in Verbindung gebracht zu werden. Heutige Verfechter einer sinnstiftenden Zweckausrichtung, starken Gemeinschaft und transformationalen Führung haben keine Sympathien für die Idee einer rassisch homogenen Volksgemeinschaft. Aber sie ignorieren die Wurzeln zentraler Managementprinzipien und übersehen, wie stark sie Konzepte propagieren, die bereits von Nationalsozialisten vertreten wurden","attachments":["Kühl - 2025 - Führung und Gefolgschaft Management im Nationalsozialismus und in der Demokratie.pdf"],"cover_url":"cover-backups/978-3-518-30069-5.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Kühl, Stefan (2025). Führung und Gefolgschaft: Management im Nationalsozialismus und in der Demokratie (Erste Auflage, Originalausgabe. ed.). Suhrkamp, Berlin.","title_sort":"fuhrung und gefolgschaft: management im nationalsozialismus und in der demokratie","creator_sort":"kuhl, stefan"},{"id":"978-3-518-30079-4","title":"Kybernetik und Kritik: eine Theorie digitaler Regierungskunst","short_title":"Kybernetik und Kritik","authors":["Anna-Verena Nosthoff"],"editors":[],"translators":[],"contributors":[],"creator_label":"Anna-Verena Nosthoff","series":"Suhrkamp Taschenbuch Wissenschaft","series_key":"suhrkamp-taschenbuch-wissenschaft","series_number":2479,"series_badge":"stw 2479","series_order":1,"publisher_name":"Suhrkamp","publisher_city":"Berlin","publisher_display":"Suhrkamp · Berlin","year":2026,"year_label":"2026","edition":"Erste Auflage, Originalausgabe","pages":671,"pages_label":"671 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-30079-4","isbns":["978-3-518-30079-4"],"subjects":[],"abstract":"","attachments":["Nosthoff - 2026 - Kybernetik und Kritik eine Theorie digitaler Regierungskunst.pdf"],"cover_url":"cover-backups/978-3-518-30079-4.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Nosthoff, Anna-Verena (2026). Kybernetik und Kritik: eine Theorie digitaler Regierungskunst (Erste Auflage, Originalausgabe. ed.). Suhrkamp, Berlin.","title_sort":"kybernetik und kritik: eine theorie digitaler regierungskunst","creator_sort":"nosthoff, anna-verena"},{"id":"978-3-518-06507-5","title":"Lektüre für Minuten: Gedanken aus seinen Büchern; u. Briefen","short_title":"Lektüre für Minuten","authors":["Hermann Hesse","Volker Michels"],"editors":[],"translators":[],"contributors":[],"creator_label":"Hermann Hesse, Volker Michels","series":"Suhrkamp Taschenbuch","series_key":"suhrkamp-taschenbuch","series_number":7,"series_badge":"st 7","series_order":2,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt a. M.","publisher_display":"Suhrkamp · Frankfurt a. M.","year":1971,"year_label":"1971","edition":"","pages":228,"pages_label":"228 pp.","language":"sin dato","library_catalog":"Library of Congress ISBN","primary_isbn":"978-3-518-06507-5","isbns":["978-3-518-06507-5"],"subjects":["PT2617.E85 A16 1971"],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-06507-5.jpg","cover_kind":"provisional","source_label":"Open Library","apa7":"Hesse, Hermann y Michels, Volker (1971). Lektüre für Minuten: Gedanken aus seinen Büchern; u. Briefen. Suhrkamp, Frankfurt a. M..","title_sort":"lekture fur minuten: gedanken aus seinen buchern; u. briefen","creator_sort":"hesse, hermann"},{"id":"978-3-518-36675-2","title":"Der Steppenwolf: Erzählung","short_title":"Der Steppenwolf","authors":["Hermann Hesse"],"editors":[],"translators":[],"contributors":[],"creator_label":"Hermann Hesse","series":"Suhrkamp Taschenbuch","series_key":"suhrkamp-taschenbuch","series_number":175,"series_badge":"st 175","series_order":2,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt am Main","publisher_display":"Suhrkamp · Frankfurt am Main","year":2017,"year_label":"2017","edition":"57. Aufl","pages":277,"pages_label":"277 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-36675-2","isbns":["978-3-518-36675-2"],"subjects":[],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-36675-2.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Hesse, Hermann (2017). Der Steppenwolf: Erzählung (57. Aufl. ed.). Suhrkamp, Frankfurt am Main.","title_sort":"der steppenwolf: erzahlung","creator_sort":"hesse, hermann"},{"id":"978-3-518-06885-4","title":"Hermann Hesse: sein Leben und sein Werk","short_title":"Hermann Hesse","authors":["Hugo Ball"],"editors":[],"translators":[],"contributors":[],"creator_label":"Hugo Ball","series":"Suhrkamp Taschenbuch","series_key":"suhrkamp-taschenbuch","series_number":385,"series_badge":"st 385","series_order":2,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt am Main","publisher_display":"Suhrkamp · Frankfurt am Main","year":1978,"year_label":"1978","edition":"Zweite Auflage","pages":193,"pages_label":"193 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-06885-4","isbns":["978-3-518-06885-4"],"subjects":[],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-06885-4.jpg","cover_kind":"provisional","source_label":"Open Library","apa7":"Ball, Hugo (1978). Hermann Hesse: sein Leben und sein Werk (Zweite Auflage. ed.). Suhrkamp, Frankfurt am Main.","title_sort":"hermann hesse: sein leben und sein werk","creator_sort":"ball, hugo"},{"id":"978-3-518-37333-0","title":"Die tausend Träume von Stellavista und andere Vermilion-Sands-Stories","short_title":"","authors":["J. G. Ballard","Alfred Scholz","J. G. Ballard"],"editors":[],"translators":[],"contributors":[],"creator_label":"J. G. Ballard, Alfred Scholz, J. G. Ballard","series":"Suhrkamp Taschenbuch","series_key":"suhrkamp-taschenbuch","series_number":833,"series_badge":"st 833","series_order":2,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt (Main)","publisher_display":"Suhrkamp · Frankfurt (Main)","year":1982,"year_label":"1982","edition":"","pages":202,"pages_label":"202 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-37333-0","isbns":["978-3-518-37333-0"],"subjects":[],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-37333-0.jpg","cover_kind":"provisional","source_label":"Open Library","apa7":"Ballard, J. G., Scholz, Alfred, y Ballard, J. G. (1982). Die tausend Träume von Stellavista und andere Vermilion-Sands-Stories. Suhrkamp, Frankfurt (Main).","title_sort":"die tausend traume von stellavista und andere vermilion-sands-stories","creator_sort":"ballard, j. g."},{"id":"978-3-518-38251-6","title":"Das Heilige und das Profane: vom Wesen des Religiösen","short_title":"Das Heilige und das Profane","authors":["Mircea Eliade"],"editors":[],"translators":[],"contributors":[],"creator_label":"Mircea Eliade","series":"Suhrkamp Taschenbuch","series_key":"suhrkamp-taschenbuch","series_number":1751,"series_badge":"st 1751","series_order":2,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt am Main","publisher_display":"Suhrkamp · Frankfurt am Main","year":1997,"year_label":"1997","edition":"1. Aufl., [4. Dr.]","pages":188,"pages_label":"188 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-38251-6","isbns":["978-3-518-38251-6"],"subjects":[],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-38251-6.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Eliade, Mircea (1997). Das Heilige und das Profane: vom Wesen des Religiösen (1. Aufl., [4. Dr.]. ed.). Suhrkamp, Frankfurt am Main.","title_sort":"das heilige und das profane: vom wesen des religiosen","creator_sort":"eliade, mircea"},{"id":"978-3-518-38346-9","title":"Dreigroschenroman","short_title":"","authors":["Bertolt Brecht"],"editors":[],"translators":[],"contributors":[],"creator_label":"Bertolt Brecht","series":"Suhrkamp Taschenbuch","series_key":"suhrkamp-taschenbuch","series_number":1846,"series_badge":"st 1846","series_order":2,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt am Main","publisher_display":"Suhrkamp · Frankfurt am Main","year":2018,"year_label":"2018","edition":"9. Auflage","pages":391,"pages_label":"391 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-38346-9","isbns":["978-3-518-38346-9"],"subjects":[],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-38346-9.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Brecht, Bertolt (2018). Dreigroschenroman (9. Auflage. ed.). Suhrkamp, Frankfurt am Main.","title_sort":"dreigroschenroman","creator_sort":"brecht, bertolt"},{"id":"978-3-518-39629-2","title":"Flüchtlingsgespräche","short_title":"","authors":["Bertolt Brecht"],"editors":[],"translators":[],"contributors":[],"creator_label":"Bertolt Brecht","series":"Suhrkamp Taschenbuch","series_key":"suhrkamp-taschenbuch","series_number":3129,"series_badge":"st 3129","series_order":2,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt am Main","publisher_display":"Suhrkamp · Frankfurt am Main","year":2016,"year_label":"2016","edition":"Erweiterte Ausgabe, 5. Auflage","pages":147,"pages_label":"147 pp.","language":"sin dato","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-39629-2","isbns":["978-3-518-39629-2"],"subjects":[],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-39629-2.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Brecht, Bertolt (2016). Flüchtlingsgespräche (Erweiterte Ausgabe, 5. Auflage. ed.). Suhrkamp, Frankfurt am Main.","title_sort":"fluchtlingsgesprache","creator_sort":"brecht, bertolt"},{"id":"978-3-518-39954-5","title":"Benjamin und Brecht: die Geschichte einer Freundschaft: mit einer Chronik und den Gesprächsprotokollen des Zeitschriftenprojekts \"Krise und Kritik\"","short_title":"Benjamin und Brecht","authors":["Erdmut Wizisla"],"editors":[],"translators":[],"contributors":[],"creator_label":"Erdmut Wizisla","series":"Suhrkamp Taschenbuch","series_key":"suhrkamp-taschenbuch","series_number":3454,"series_badge":"st 3454","series_order":2,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt am Main","publisher_display":"Suhrkamp · Frankfurt am Main","year":2004,"year_label":"2004","edition":"1. Ausg","pages":395,"pages_label":"395 pp.","language":"sin dato","library_catalog":"Library of Congress ISBN","primary_isbn":"978-3-518-39954-5","isbns":["978-3-518-39954-5"],"subjects":["PT2603.E455 Z958 2004"],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-39954-5.jpg","cover_kind":"provisional","source_label":"Google Books","apa7":"Wizisla, Erdmut (2004). Benjamin und Brecht: die Geschichte einer Freundschaft: mit einer Chronik und den Gesprächsprotokollen des Zeitschriftenprojekts \"Krise und Kritik\" (1. Ausg. ed.). Suhrkamp, Frankfurt am Main.","title_sort":"benjamin und brecht: die geschichte einer freundschaft: mit einer chronik und den gesprachsprotokollen des zeitschriftenprojekts \"krise und kritik\"","creator_sort":"wizisla, erdmut"},{"id":"978-3-518-46163-1","title":"Über die Verborgenheit der Gesundheit: Aufsätze und Vorträge","short_title":"Über die Verborgenheit der Gesundheit","authors":["Hans-Georg Gadamer"],"editors":[],"translators":[],"contributors":[],"creator_label":"Hans-Georg Gadamer","series":"Suhrkamp Taschenbuch","series_key":"suhrkamp-taschenbuch","series_number":4163,"series_badge":"st 4163","series_order":2,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt am Main","publisher_display":"Suhrkamp · Frankfurt am Main","year":2010,"year_label":"2010","edition":"1. Aufl","pages":213,"pages_label":"213 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-46163-1","isbns":["978-3-518-46163-1"],"subjects":[],"abstract":"","attachments":["Gadamer - 2010 - Über die Verborgenheit der Gesundheit Aufsätze und Vorträge.pdf"],"cover_url":"cover-backups/978-3-518-46163-1.jpg","cover_kind":"provisional","source_label":"Google Books","apa7":"Gadamer, Hans-Georg (2010). Über die Verborgenheit der Gesundheit: Aufsätze und Vorträge (1. Aufl. ed.). Suhrkamp, Frankfurt am Main.","title_sort":"uber die verborgenheit der gesundheit: aufsatze und vortrage","creator_sort":"gadamer, hans-georg"},{"id":"978-3-518-46892-0","title":"Nach Gott","short_title":"","authors":["Peter Sloterdijk"],"editors":[],"translators":[],"contributors":[],"creator_label":"Peter Sloterdijk","series":"Suhrkamp Taschenbuch","series_key":"suhrkamp-taschenbuch","series_number":4892,"series_badge":"st 4892","series_order":2,"publisher_name":"Suhrkamp","publisher_city":"Berlin","publisher_display":"Suhrkamp · Berlin","year":2018,"year_label":"2018","edition":"","pages":364,"pages_label":"364 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-46892-0","isbns":["978-3-518-46892-0"],"subjects":[],"abstract":"","attachments":["Sloterdijk - 2018 - Nach Gott.pdf"],"cover_url":"cover-backups/978-3-518-46892-0.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Sloterdijk, Peter (2018). Nach Gott. Suhrkamp, Berlin.","title_sort":"nach gott","creator_sort":"sloterdijk, peter"},{"id":"978-3-518-47145-6","title":"Der futurologische Kongreß: aus Ijon Tichys Erinnerungen","short_title":"Der futurologische Kongreß","authors":["Stanisław Lem"],"editors":[],"translators":["Irmtraud Zimmermann-Göllheim"],"contributors":[],"creator_label":"Stanisław Lem","series":"Suhrkamp Taschenbuch","series_key":"suhrkamp-taschenbuch","series_number":5145,"series_badge":"st 5145","series_order":2,"publisher_name":"Suhrkamp","publisher_city":"Berlin","publisher_display":"Suhrkamp · Berlin","year":2021,"year_label":"2021","edition":"Erste Auflage dieser Ausgabe","pages":138,"pages_label":"138 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-47145-6","isbns":["978-3-518-47145-6"],"subjects":[],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-47145-6.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Lem, Stanisław (2021). Der futurologische Kongreß: aus Ijon Tichys Erinnerungen (Erste Auflage dieser Ausgabe. ed.). [Zimmermann-Göllheim, Irmtraud, Trad.] Suhrkamp, Berlin.","title_sort":"der futurologische kongreß: aus ijon tichys erinnerungen","creator_sort":"lem, stanisław"},{"id":"978-3-518-10229-9","title":"Die Dreigroschenoper: der Erstdruck 1928: Text und Materialien","short_title":"Die Dreigroschenoper","authors":["Bertolt Brecht","Elisabeth Hauptmann","Kurt Weill"],"editors":[],"translators":[],"contributors":[],"creator_label":"Bertolt Brecht, Elisabeth Hauptmann, Kurt Weill","series":"Suhrkamp Taschenbuch","series_key":"suhrkamp-taschenbuch","series_number":5503,"series_badge":"st 5503","series_order":2,"publisher_name":"Suhrkamp","publisher_city":"Berlin","publisher_display":"Suhrkamp · Berlin","year":2025,"year_label":"2025","edition":"Erste Auflage, Neuausgabe","pages":129,"pages_label":"129 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-10229-9","isbns":["978-3-518-10229-9","978-3-518-47503-4"],"subjects":[],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-10229-9.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Brecht, Bertolt, Hauptmann, Elisabeth, y Weill, Kurt (2025). Die Dreigroschenoper: der Erstdruck 1928: Text und Materialien (Erste Auflage, Neuausgabe. ed.). Suhrkamp, Berlin.","title_sort":"die dreigroschenoper: der erstdruck 1928: text und materialien","creator_sort":"brecht, bertolt"},{"id":"978-3-518-46431-1","title":"Berlin bei Nacht: Neue Geschichten","short_title":"Berlin bei Nacht","authors":[],"editors":["Susanne Gretter"],"translators":[],"contributors":[],"creator_label":"Susanne Gretter","series":"Suhrkamp Taschenbuch","series_key":"suhrkamp-taschenbuch","series_number":null,"series_badge":"st","series_order":2,"publisher_name":"Suhrkamp","publisher_city":"Berlin","publisher_display":"Suhrkamp · Berlin","year":2013,"year_label":"2013","edition":"","pages":271,"pages_label":"271 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-46431-1","isbns":["978-3-518-46431-1"],"subjects":[],"abstract":"","attachments":["Gretter - 2013 - Berlin bei Nacht Neue Geschichten.pdf"],"cover_url":"cover-backups/978-3-518-46431-1.jpg","cover_kind":"provisional","source_label":"Google Books","apa7":"Gretter, Susanne (Ed.) (2013). Berlin bei Nacht: Neue Geschichten. Suhrkamp, Berlin.","title_sort":"berlin bei nacht: neue geschichten","creator_sort":"gretter, susanne"},{"id":"978-3-518-00646-7","title":"Die Expressionismusdebatte: Materialien zu einer marxistischen Realismuskonzeption","short_title":"Die Expressionismusdebatte","authors":[],"editors":["Hans-Jürgen Schmitt"],"translators":[],"contributors":[],"creator_label":"Hans-Jürgen Schmitt","series":"Edition Suhrkamp","series_key":"edition-suhrkamp","series_number":646,"series_badge":"es 646","series_order":3,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt am Main","publisher_display":"Suhrkamp · Frankfurt am Main","year":1973,"year_label":"1973","edition":"1. Auflage","pages":337,"pages_label":"337 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-00646-7","isbns":["978-3-518-00646-7"],"subjects":[],"abstract":"","attachments":["Schmitt - 1976 - Die Expressionismusdebatte Materialien zu einer marxistischen Realismuskonzeption.pdf"],"cover_url":"cover-backups/978-3-518-00646-7.jpg","cover_kind":"provisional","source_label":"Google Books","apa7":"Schmitt, Hans-Jürgen (Ed.) (1973). Die Expressionismusdebatte: Materialien zu einer marxistischen Realismuskonzeption (1. Auflage. ed.). Suhrkamp, Frankfurt am Main.","title_sort":"die expressionismusdebatte: materialien zu einer marxistischen realismuskonzeption","creator_sort":"schmitt, hans-jurgen"},{"id":"978-3-518-11297-7","title":"Peter Sloterdijks \"Kritik der zynischen Vernunft\"","short_title":"","authors":[],"editors":["Otto Kallscheuer"],"translators":[],"contributors":[],"creator_label":"Otto Kallscheuer","series":"Edition Suhrkamp","series_key":"edition-suhrkamp","series_number":1297,"series_badge":"es 1297","series_order":3,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt am Main","publisher_display":"Suhrkamp · Frankfurt am Main","year":2008,"year_label":"2008","edition":"Erstausg., 1. Aufl., [Nachdr.]","pages":387,"pages_label":"387 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-11297-7","isbns":["978-3-518-11297-7"],"subjects":[],"abstract":"","attachments":["Kallscheuer - 2008 - Peter Sloterdijks Kritik der zynischen Vernunft.pdf"],"cover_url":"cover-backups/978-3-518-11297-7.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Kallscheuer, Otto (Ed.) (2008). Peter Sloterdijks \"Kritik der zynischen Vernunft\" (Erstausg., 1. Aufl., [Nachdr.]. ed.). Suhrkamp, Frankfurt am Main.","title_sort":"peter sloterdijks \"kritik der zynischen vernunft\"","creator_sort":"kallscheuer, otto"},{"id":"978-3-518-11514-5","title":"Die politische Ontologie Martin Heideggers","short_title":"","authors":["Pierre Bourdieu"],"editors":[],"translators":["Bernd Schwibs"],"contributors":[],"creator_label":"Pierre Bourdieu","series":"Edition Suhrkamp","series_key":"edition-suhrkamp","series_number":1514,"series_badge":"es 1514","series_order":3,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt am Main","publisher_display":"Suhrkamp · Frankfurt am Main","year":2015,"year_label":"2015","edition":"3. Auflage","pages":158,"pages_label":"158 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-11514-5","isbns":["978-3-518-11514-5"],"subjects":[],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-11514-5.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Bourdieu, Pierre (2015). Die politische Ontologie Martin Heideggers (3. Auflage. ed.). [Schwibs, Bernd, Trad.] Suhrkamp, Frankfurt am Main.","title_sort":"die politische ontologie martin heideggers","creator_sort":"bourdieu, pierre"},{"id":"978-3-518-12485-7","title":"Die Fiktion der wahrscheinlichen Realität","short_title":"","authors":["Elena Esposito"],"editors":[],"translators":["Nicole Reinhardt"],"contributors":[],"creator_label":"Elena Esposito","series":"Edition Suhrkamp","series_key":"edition-suhrkamp","series_number":2485,"series_badge":"es 2485","series_order":3,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt am Main","publisher_display":"Suhrkamp · Frankfurt am Main","year":2023,"year_label":"2023","edition":"5. Auflage, Originalausgabe","pages":127,"pages_label":"127 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-12485-7","isbns":["978-3-518-12485-7"],"subjects":[],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-12485-7.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Esposito, Elena (2023). Die Fiktion der wahrscheinlichen Realität (5. Auflage, Originalausgabe. ed.). [Reinhardt, Nicole, Trad.] Suhrkamp, Frankfurt am Main.","title_sort":"die fiktion der wahrscheinlichen realitat","creator_sort":"esposito, elena"},{"id":"978-3-518-18859-0","title":"Todesfuge und andere Gedichte","short_title":"","authors":["Paul Celan","Barbara Wiedemann"],"editors":[],"translators":[],"contributors":[],"creator_label":"Paul Celan, Barbara Wiedemann","series":"Suhrkamp-BasisBibliothek","series_key":"suhrkamp-basisbibliothek","series_number":59,"series_badge":"bb 59","series_order":4,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt am Main","publisher_display":"Suhrkamp · Frankfurt am Main","year":2021,"year_label":"2021","edition":"6. Auflage, Originalausgabe","pages":185,"pages_label":"185 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-18859-0","isbns":["978-3-518-18859-0"],"subjects":[],"abstract":"Im Gegensatz zu den meisten anderen Bänden der Reihe nehmen hier die Primärwerke - 50 Gedichte und eine Rede, gehalten anlässlich der Verleihung des Georg-Büchner-Preises in Darmstadt am 22. Oktober 1960 - relativ wenig Raum ein, der größere Teil ist dem Kommentarteil vorbehalten. Für Schüler ab Sekundarstufe II und Lehrer","attachments":[],"cover_url":"cover-backups/978-3-518-18859-0.jpg","cover_kind":"provisional","source_label":"Google Books","apa7":"Celan, Paul y Wiedemann, Barbara (2021). Todesfuge und andere Gedichte (6. Auflage, Originalausgabe. ed.). Suhrkamp, Frankfurt am Main.","title_sort":"todesfuge und andere gedichte","creator_sort":"celan, paul"},{"id":"978-3-518-02999-2","title":"Survival of the Richest: warum wir vor den Tech-Milliardären nicht einmal auf dem Mars sicher sind","short_title":"Survival of the Richest","authors":["Douglas Rushkoff"],"editors":[],"translators":["Stephan Gebauer"],"contributors":[],"creator_label":"Douglas Rushkoff","series":"Edition Suhrkamp Sonderdruck","series_key":"edition-suhrkamp-sonderdruck","series_number":null,"series_badge":"es-sd","series_order":5,"publisher_name":"Suhrkamp","publisher_city":"Berlin","publisher_display":"Suhrkamp · Berlin","year":2025,"year_label":"2025","edition":"Deutsche Erstausgabe","pages":282,"pages_label":"282 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-02999-2","isbns":["978-3-518-02999-2"],"subjects":[],"abstract":"","attachments":["Rushkoff and Gebauer - 2025 - Survival of the Richest warum wir vor den Tech-Milliardären nicht einmal auf dem Mars sicher sind.pdf"],"cover_url":"cover-backups/978-3-518-02999-2.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Rushkoff, Douglas (2025). Survival of the Richest: warum wir vor den Tech-Milliardären nicht einmal auf dem Mars sicher sind (Deutsche Erstausgabe. ed.). [Gebauer, Stephan, Trad.] Suhrkamp, Berlin.","title_sort":"survival of the richest: warum wir vor den tech-milliardaren nicht einmal auf dem mars sicher sind","creator_sort":"rushkoff, douglas"},{"id":"978-3-518-58830-7","title":"Post-: Nachruf auf eine Vorsilbe","short_title":"Post-","authors":["Dieter Thomä"],"editors":[],"translators":[],"contributors":[],"creator_label":"Dieter Thomä","series":"Sin serie","series_key":"sin-serie","series_number":null,"series_badge":"sin-serie","series_order":99,"publisher_name":"Suhrkamp","publisher_city":"Berlin","publisher_display":"Suhrkamp · Berlin","year":2025,"year_label":"2025","edition":"Erste Auflage, Originalausgabe","pages":398,"pages_label":"398 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-58830-7","isbns":["978-3-518-58830-7"],"subjects":[],"abstract":"","attachments":["Thomä - 2025 - Post- Nachruf auf eine Vorsilbe.pdf"],"cover_url":"cover-backups/978-3-518-58830-7.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Thomä, Dieter (2025). Post-: Nachruf auf eine Vorsilbe (Erste Auflage, Originalausgabe. ed.). Suhrkamp, Berlin.","title_sort":"post-: nachruf auf eine vorsilbe","creator_sort":"thoma, dieter"},{"id":"978-3-518-29777-3","title":"Wozu Theorie? Aufsätze","short_title":"Wozu Theorie?","authors":["Dirk Baecker"],"editors":[],"translators":[],"contributors":[],"creator_label":"Dirk Baecker","series":"Sin serie","series_key":"sin-serie","series_number":null,"series_badge":"sin-serie","series_order":99,"publisher_name":"Suhrkamp Verlag","publisher_city":"Berlin","publisher_display":"Suhrkamp Verlag · Berlin","year":2016,"year_label":"2016","edition":"1st ed","pages":1,"pages_label":"1 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-29777-3","isbns":["978-3-518-29777-3","978-3-518-74415-4"],"subjects":[],"abstract":"Inhalt · Vorwort · Handeln im Netzwerk · No Action Required · Handlung als Grundbegriff · Handlung als Negation ihrer selbst · Zählen, Ordnen, Tauschen · Drei Probleme der Kybernetik · Zufall und Entscheidung · Die Schließung · Zählen und Tauschen · Ein Wahrscheinlichkeitskalkül · Technik und Entscheidung · Weltbezug · Die Frage nach der Technik · Zwischen den Polen der Kausalität und der Magie · Freiheitsgrade · Einrichtung von Selektivität · Negativsprachen aus soziologischer Sicht · Negationen · Negativität als Reflexivität · Nietzsche und Heidegger · Einige Beispiele · Kommunikation · Wissenschaft · Theoriearbeit · Eine Verlegenheit um den Anfang · Aphorismen · Freiheitsgrade · Zwei Beispiele · Aufhören können · Systemtheorie als Kommunikationstheorie · Drei Impulse · Kommunikation sichert Redundanz · Die Sozialdimension des Sinns · Abschied vom Privileg des Menschen · Die Texte der Systemtheorie · Eine Wirklichkeit erfahren · Eine Supertheorie · Im Medium der Wahrheit · Es gibt keine sozialen Systeme · Vielfalt statt Krise · Wer sagt das denn? · Kann man ein Axiom kritisieren? · Eine Theorie soziologischer Systeme · Die Beobachtung komplexer Systeme · Eine Struktur des Verdachts · System als Reflexionsbegriff · Seit den Griechen · Und in der Soziologie · Komplexität als System · Ausblick · Ein neues Zeichen · Die Markierung der Unterscheidung · George Spencer-Brown · Imaginäre Zahlen · Laws of Form · Der Beobachter · Identität als Oszillation · Eine Übung · Wer hat Angst vor Hegel? · Die europäische Universität · Orte für Theorien · Spekulative Forschung · Ein strenger Idealismus · Metadaten · Ein ordentlicher Anfang · Eine unvermeidliche und zunehmende Unvollkommenheit · Statik und Dynamik","attachments":[],"cover_url":"cover-backups/978-3-518-29777-3.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Baecker, Dirk (2016). Wozu Theorie? Aufsätze (1st ed. ed.). Suhrkamp Verlag, Berlin.","title_sort":"wozu theorie? aufsatze","creator_sort":"baecker, dirk"},{"id":"978-3-518-45981-2","title":"Warum Denken traurig macht: zehn (mögliche) Gründe","short_title":"Warum Denken traurig macht","authors":["George Steiner"],"editors":[],"translators":[],"contributors":[],"creator_label":"George Steiner","series":"Sin serie","series_key":"sin-serie","series_number":null,"series_badge":"sin-serie","series_order":99,"publisher_name":"Suhrkamp-Verlag","publisher_city":"Berlin","publisher_display":"Suhrkamp-Verlag · Berlin","year":2017,"year_label":"2017","edition":"10. Auflage","pages":124,"pages_label":"124 pp.","language":"sin dato","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-45981-2","isbns":["978-3-518-45981-2"],"subjects":[],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-45981-2.jpg","cover_kind":"provisional","source_label":"Google Books","apa7":"Steiner, George (2017). Warum Denken traurig macht: zehn (mögliche) Gründe (10. Auflage. ed.). Suhrkamp-Verlag, Berlin.","title_sort":"warum denken traurig macht: zehn (mogliche) grunde","creator_sort":"steiner, george"},{"id":"978-3-518-12625-7","title":"Der Mensch ohne Inhalt","short_title":"","authors":["Giorgio Agamben"],"editors":[],"translators":[],"contributors":["Anton Schütz"],"creator_label":"Giorgio Agamben","series":"Sin serie","series_key":"sin-serie","series_number":null,"series_badge":"sin-serie","series_order":99,"publisher_name":"Suhrkamp Verlag","publisher_city":"Berlin","publisher_display":"Suhrkamp Verlag · Berlin","year":2012,"year_label":"2012","edition":"2nd ed","pages":1,"pages_label":"1 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-12625-7","isbns":["978-3-518-12625-7","978-3-518-76851-8"],"subjects":[],"abstract":"Cover · Informationen zum Buch/zum Autor · Impressum · Inhalt · Widmung · Was das Unheimlichste ist · Frenhofer und sein Doppelgänger · Der Mensch von Geschmack und die Dialektik der Zerrissenheit · Die Wunderkammer · Die Urteile über die Dichtkunst sind wertvoller als die Dichtkunst selbst · Ein sich selbst vernichtendes Nichts · Die Entbehrung ist wie ein Gesicht · Poiesis und Praxis · Die ursprüngliche Struktur des Kunstwerks · Der Engel der Melancholie · Anmerkungen","attachments":[],"cover_url":"cover-backups/978-3-518-12625-7.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Agamben, Giorgio (2012). Der Mensch ohne Inhalt (2nd ed. ed.). Suhrkamp Verlag, Berlin.","title_sort":"der mensch ohne inhalt","creator_sort":"agamben, giorgio"},{"id":"registro-33","title":"Dialektik des Konkreten","short_title":"","authors":["Karel Kosik"],"editors":[],"translators":[],"contributors":[],"creator_label":"Karel Kosik","series":"Sin serie","series_key":"sin-serie","series_number":null,"series_badge":"sin-serie","series_order":99,"publisher_name":"Suhrkamp","publisher_city":"","publisher_display":"Suhrkamp","year":1970,"year_label":"1970","edition":"","pages":null,"pages_label":"","language":"sin dato","library_catalog":"","primary_isbn":"","isbns":[],"subjects":[],"abstract":"","attachments":[],"cover_url":"portadas/dialektik-des-konkreten.jpg","cover_kind":"local","source_label":"Foto local","apa7":"Kosik, Karel (1970). Dialektik des Konkreten. Suhrkamp.","title_sort":"dialektik des konkreten","creator_sort":"kosik, karel"},{"id":"978-3-518-12303-4","title":"Soundcultures: über elektronische und digitale Musik","short_title":"Soundcultures","authors":[],"editors":["Marcus S. Kleiner","Achim Szepanski"],"translators":[],"contributors":[],"creator_label":"Marcus S. Kleiner, Achim Szepanski","series":"Sin serie","series_key":"sin-serie","series_number":null,"series_badge":"sin-serie","series_order":99,"publisher_name":"Suhrkamp","publisher_city":"Frankfurt","publisher_display":"Suhrkamp · Frankfurt","year":2003,"year_label":"2003","edition":"1. Aufl","pages":238,"pages_label":"238 pp.","language":"sin dato","library_catalog":"Library of Congress ISBN","primary_isbn":"978-3-518-12303-4","isbns":["978-3-518-12303-4"],"subjects":["ML3849 .S727 2003"],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-12303-4.jpg","cover_kind":"provisional","source_label":"Open Library","apa7":"Kleiner, Marcus S. y Szepanski, Achim (Eds.) (2003). Soundcultures: über elektronische und digitale Musik (1. Aufl. ed.). Suhrkamp, Frankfurt.","title_sort":"soundcultures: uber elektronische und digitale musik","creator_sort":"kleiner, marcus s."},{"id":"978-3-518-28691-3","title":"Gesellschaftsstruktur und Semantik: Studien zur Wissenssoziologie der modernen Gesellschaft. Band 1","short_title":"Gesellschaftsstruktur und Semantik","authors":["Niklas Luhmann"],"editors":[],"translators":[],"contributors":[],"creator_label":"Niklas Luhmann","series":"Sin serie","series_key":"sin-serie","series_number":null,"series_badge":"sin-serie","series_order":99,"publisher_name":"Suhrkamp Verlag","publisher_city":"Berlin","publisher_display":"Suhrkamp Verlag · Berlin","year":2010,"year_label":"2010","edition":"1st ed","pages":1,"pages_label":"1 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-28691-3","isbns":["978-3-518-28691-3","978-3-518-75599-0"],"subjects":[],"abstract":"Inhalt · Vorwort · Kapitel 1: Gesellschaftliche Struktur und semantische Tradition · I. · II. · III. · IV. · V. · VI. · VII. · VIII. · IX. · Kapitel 2: Interaktion in Oberschichten. Zur Transformation ihrer Semantik im 17. und 18. Jahrhundert · I. · II. · III. · IV. · V. · VI. · VII. · VIII. · IX. · X. · XI. · XII. · Kapitel 3: Frühneuzeitliche Anthropologie. Theorietechnische Lösungen für ein Evolutionsproblem der Gesellschaft · I. · II. · III. · IV. · V. · VI. · VII. · VIII. · IX. · X. · XI. · XII. · Kapitel 4: Temporalisierung von Komplexität. Zur Semantik neuzeitlicher Zeitbegriffe · I. · II. · III. · IV. · V. · VI. · VII. · VIII. · IX. · X. · XI. · XII. · XIII. · Kapitel 5: Selbstreferenz und binäre Schematisierung · I. · II. · III. · Register","attachments":[],"cover_url":"cover-backups/978-3-518-28691-3.jpg","cover_kind":"provisional","source_label":"Open Library","apa7":"Luhmann, Niklas (2010). Gesellschaftsstruktur und Semantik: Studien zur Wissenssoziologie der modernen Gesellschaft. Band 1 (1st ed. ed.). Suhrkamp Verlag, Berlin.","title_sort":"gesellschaftsstruktur und semantik: studien zur wissenssoziologie der modernen gesellschaft. band 1","creator_sort":"luhmann, niklas"},{"id":"978-3-518-29038-5","title":"Gesellschaftsstruktur und Semantik: Studien zur Wissenssoziologie der modernen Gesellschaft. Band 4","short_title":"Gesellschaftsstruktur und Semantik","authors":["Niklas Luhmann"],"editors":[],"translators":[],"contributors":[],"creator_label":"Niklas Luhmann","series":"Sin serie","series_key":"sin-serie","series_number":null,"series_badge":"sin-serie","series_order":99,"publisher_name":"Suhrkamp Verlag","publisher_city":"Berlin","publisher_display":"Suhrkamp Verlag · Berlin","year":2016,"year_label":"2016","edition":"1st ed","pages":1,"pages_label":"1 pp.","language":"alemán","library_catalog":"K10plus ISBN","primary_isbn":"978-3-518-29038-5","isbns":["978-3-518-29038-5","978-3-518-75577-8"],"subjects":[],"abstract":"Inhalt · Vorwort · Kapitel 1: Über Natur · I. · II. · III. · IV. · Kapitel 2: Kultur als historischer Begriff · I. · II. · III. · IV. · V. · Kapitel 3: Die Behandlung von Irritationen: Abweichung oder Neuheit? · I. · II. · III. · IV. · V. · VI. · VII. · VIII. · IX. · X. · Kapitel 4: Metamorphosen des Staates · I. · II. · III. · IV. · V. · VI. · Kapitel 5: Jenseits von Barbarei · I. · II. · III. · IV. · V. · Kapitel 6: Die Soziologie des Wissens: Probleme ihrer theoretischen Konstruktion · I. · II. · III. · IV. · V. · VI. · VII. · VIII. · Register","attachments":[],"cover_url":"cover-backups/978-3-518-29038-5.jpg","cover_kind":"official","source_label":"Suhrkamp","apa7":"Luhmann, Niklas (2016). Gesellschaftsstruktur und Semantik: Studien zur Wissenssoziologie der modernen Gesellschaft. Band 4 (1st ed. ed.). Suhrkamp Verlag, Berlin.","title_sort":"gesellschaftsstruktur und semantik: studien zur wissenssoziologie der modernen gesellschaft. band 4","creator_sort":"luhmann, niklas"},{"id":"978-3-518-42435-3","title":"Die schrecklichen Kinder der Neuzeit: über das anti-genealogische Experiment der Moderne","short_title":"Die schrecklichen Kinder der Neuzeit","authors":["Peter Sloterdijk"],"editors":[],"translators":[],"contributors":[],"creator_label":"Peter Sloterdijk","series":"Sin serie","series_key":"sin-serie","series_number":null,"series_badge":"sin-serie","series_order":99,"publisher_name":"Suhrkamp","publisher_city":"Berlin","publisher_display":"Suhrkamp · Berlin","year":2014,"year_label":"2014","edition":"Erste Auflage","pages":489,"pages_label":"489 pp.","language":"sin dato","library_catalog":"Library of Congress ISBN","primary_isbn":"978-3-518-42435-3","isbns":["978-3-518-42435-3"],"subjects":["B809.3 .S56 2014"],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-42435-3.jpg","cover_kind":"provisional","source_label":"Google Books","apa7":"Sloterdijk, Peter (2014). Die schrecklichen Kinder der Neuzeit: über das anti-genealogische Experiment der Moderne (Erste Auflage. ed.). Suhrkamp, Berlin.","title_sort":"die schrecklichen kinder der neuzeit: uber das anti-genealogische experiment der moderne","creator_sort":"sloterdijk, peter"},{"id":"978-3-518-42507-7","title":"Was geschah im 20. Jahrhundert?","short_title":"","authors":["Peter Sloterdijk"],"editors":[],"translators":[],"contributors":[],"creator_label":"Peter Sloterdijk","series":"Sin serie","series_key":"sin-serie","series_number":null,"series_badge":"sin-serie","series_order":99,"publisher_name":"Suhrkamp","publisher_city":"Berlin","publisher_display":"Suhrkamp · Berlin","year":2016,"year_label":"2016","edition":"Erste Auflage","pages":348,"pages_label":"348 pp.","language":"sin dato","library_catalog":"Library of Congress ISBN","primary_isbn":"978-3-518-42507-7","isbns":["978-3-518-42507-7"],"subjects":["B3332.S253 W37 2016"],"abstract":"","attachments":[],"cover_url":"cover-backups/978-3-518-42507-7.png","cover_kind":"provisional","source_label":"Google Books","apa7":"Sloterdijk, Peter (2016). Was geschah im 20. Jahrhundert? (Erste Auflage. ed.). Suhrkamp, Berlin.","title_sort":"was geschah im 20. jahrhundert?","creator_sort":"sloterdijk, peter"},{"id":"registro-16","title":"Versuche über Brecht","short_title":"","authors":["Walter Benjamin"],"editors":[],"translators":[],"contributors":[],"creator_label":"Walter Benjamin","series":"Sin serie","series_key":"sin-serie","series_number":null,"series_badge":"sin-serie","series_order":99,"publisher_name":"Suhrkamp","publisher_city":"","publisher_display":"Suhrkamp","year":1966,"year_label":"1966","edition":"","pages":null,"pages_label":"","language":"sin dato","library_catalog":"","primary_isbn":"","isbns":[],"subjects":[],"abstract":"","attachments":[],"cover_url":"cover-backups/versuche-uber-brecht.jpg","cover_kind":"provisional","source_label":"Open Library","apa7":"Benjamin, Walter (1966). Versuche über Brecht. Suhrkamp.","title_sort":"versuche uber brecht","creator_sort":"benjamin, walter"}];
+
+    /* ── State ─────────────────────────────────────── */
+    let state = {
+      query: "",
+      series: "all",
+      sort: "author",
+      filtered: [],
+      activeIndex: -1,   // index in filtered array
+    };
+
+    /* ── Helpers ───────────────────────────────────── */
+    function escHtml(str) {
+      return String(str ?? "")
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    }
+
+    function normText(str) {
+      return String(str ?? "").toLowerCase()
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    const SERIES_COLORS = {
+      "suhrkamp-taschenbuch-wissenschaft": "var(--stw-c)",
+      "suhrkamp-taschenbuch":              "var(--st-c)",
+      "edition-suhrkamp":                  "var(--es-c)",
+      "suhrkamp-basisbibliothek":          "var(--bb-c)",
+      "edition-suhrkamp-sonderdruck":      "var(--es-sd-c)",
+    };
+
+    /* ── APA helpers ───────────────────────────────── */
+    function fmtPerson(name) {
+      const parts = name.trim().split(/\s+/);
+      if (parts.length <= 1) return name;
+      const last = parts[parts.length - 1];
+      const firsts = parts.slice(0, -1).join(" ");
+      return `${last}, ${firsts}`;
+    }
+
+    function buildApaHtml(book) {
+      // Use precomputed plain APA from Python, then italicise the title part
+      const raw = book.apa7 || "";
+      // Find title in raw and wrap in <em>
+      const titleEscaped = escHtml(book.title);
+      // The Python-generated APA has title as plain text; replace first occurrence
+      const safeRaw = escHtml(raw);
+      const safeTitle = escHtml(book.title);
+      return safeRaw.replace(safeTitle, `<em>${safeTitle}</em>`);
+    }
+
+    function shortCreator(book) {
+      const primary = book.authors[0] || book.editors[0] || "";
+      if (!primary) return "";
+      const parts = primary.trim().split(/\s+/);
+      return parts[parts.length - 1];
+    }
+
+    /* ── Filtering & sorting ───────────────────────── */
+    function applyFilters() {
+      let list = BOOKS.slice();
+
+      // Search
+      if (state.query) {
+        const q = normText(state.query);
+        list = list.filter(b => {
+          const blob = normText(
+            [b.title, b.short_title, b.creator_label,
+             b.series, b.series_badge, b.primary_isbn,
+             ...(b.subjects || []), b.abstract].join(" ")
+          );
+          return blob.includes(q);
+        });
+      }
+
+      // Series filter
+      if (state.series !== "all") {
+        list = list.filter(b => b.series === state.series);
+      }
+
+      // Sort
+      list.sort((a, b) => {
+        if (state.sort === "series") {
+          return (a.series_order - b.series_order) ||
+                 ((a.series_number ?? 99999) - (b.series_number ?? 99999)) ||
+                 a.creator_sort.localeCompare(b.creator_sort);
+        }
+        if (state.sort === "year-asc")  return (a.year ?? 9999) - (b.year ?? 9999);
+        if (state.sort === "year-desc") return (b.year ?? 0)    - (a.year ?? 0);
+        if (state.sort === "author")    return a.creator_sort.localeCompare(b.creator_sort);
+        if (state.sort === "title")     return a.title_sort.localeCompare(b.title_sort);
+        return 0;
+      });
+
+      state.filtered = list;
+    }
+
+    /* ── Card rendering ────────────────────────────── */
+    function renderCoverImg(book, cls) {
+      if (book.cover_url) {
+        return `<img class="${cls} is-loading"
+          src="${escHtml(book.cover_url)}"
+          alt="Portada: ${escHtml(book.title)}"
+          loading="lazy"
+          onload="this.classList.remove('is-loading')"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="card-placeholder" style="display:none">
+          <span class="ph-badge">${escHtml(book.series_badge)}</span>
+          <span class="ph-title">${escHtml(book.title)}</span>
+          <span class="ph-author">${escHtml(shortCreator(book))}</span>
+        </div>`;
+      }
+      return `<div class="card-placeholder">
+        <span class="ph-badge">${escHtml(book.series_badge)}</span>
+        <span class="ph-title">${escHtml(book.title)}</span>
+        <span class="ph-author">${escHtml(shortCreator(book))}</span>
+      </div>`;
+    }
+
+    function buildCard(book, filteredIdx) {
+      const creator = shortCreator(book);
+      const yearPart = book.year_label ? `(${escHtml(book.year_label)})` : "";
+      const titlePart = `<em>${escHtml(book.title)}</em>`;
+      const pubPart = escHtml(book.publisher_name || "Suhrkamp");
+      const apaCard = [
+        creator ? escHtml(fmtPerson(book.authors[0] || book.editors[0] || "")) : "",
+        yearPart, titlePart + ".", pubPart + "."
+      ].filter(Boolean).join(" ");
+
+      return `<article
+        class="book-card series--${escHtml(book.series_key)}"
+        data-filtered-idx="${filteredIdx}"
+        tabindex="0"
+        role="button"
+        aria-label="Ver ficha: ${escHtml(book.title)}"
+      >
+        <div class="card-accent"></div>
+        <div class="card-cover-wrap">
+          ${renderCoverImg(book, "card-cover")}
+        </div>
+        <div class="card-info">
+          <p class="card-apa">${apaCard}</p>
+          <span class="card-series-badge">${escHtml(book.series_badge)}</span>
+        </div>
+      </article>`;
+    }
+
+    function renderGrid() {
+      applyFilters();
+      const grid = document.getElementById("bookGrid");
+      const badge = document.getElementById("bookCountBadge");
+      const n = state.filtered.length;
+      badge.textContent = n === BOOKS.length
+        ? `${n} títulos`
+        : `${n} de ${BOOKS.length}`;
+
+      if (n === 0) {
+        grid.innerHTML = `<p class="no-results">Ningún título coincide con la búsqueda.</p>`;
+        return;
+      }
+      grid.innerHTML = state.filtered.map((b, i) => buildCard(b, i)).join("");
+
+      // Attach click & keyboard
+      grid.querySelectorAll(".book-card").forEach(card => {
+        card.addEventListener("click", () => openModal(+card.dataset.filteredIdx));
+        card.addEventListener("keydown", e => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            openModal(+card.dataset.filteredIdx);
+          }
+        });
+      });
+    }
+
+    /* ── Modal ─────────────────────────────────────── */
+    function buildModalContent(book) {
+      const color = SERIES_COLORS[book.series_key] || "var(--other-c)";
+
+      // Cover column
+      let coverHtml;
+      if (book.cover_url) {
+        coverHtml = `<img class="modal-cover"
+          src="${escHtml(book.cover_url)}"
+          alt="Portada: ${escHtml(book.title)}"
+          loading="lazy">`;
+      } else {
+        coverHtml = `<div class="modal-cover-placeholder" style="background:${color}">
+          <span style="font-family:Fraunces,serif;font-size:1rem;font-weight:700;margin-bottom:8px">${escHtml(book.title)}</span>
+          <span style="font-size:.75rem;opacity:.75">${escHtml(shortCreator(book))}</span>
+        </div>`;
+      }
+
+      const creditLine = book.source_label
+        ? `<p class="modal-cover-credit">Portada: ${escHtml(book.source_label)}</p>`
+        : "";
+
+      // Meta rows
+      const metaRows = [];
+      const addMeta = (label, value) => {
+        if (value) metaRows.push(`<dt>${label}</dt><dd>${escHtml(value)}</dd>`);
+      };
+      if (book.editors.length) addMeta("Editores", book.editors.join(", "));
+      if (book.translators.length) addMeta("Traductores", book.translators.join(", "));
+      if (book.contributors.length) addMeta("Colaboradores", book.contributors.join(", "));
+      addMeta("Serie", book.series_number != null
+        ? `${book.series} (${book.series_badge})`
+        : book.series);
+      addMeta("Editorial", book.publisher_display);
+      addMeta("Año", book.year_label);
+      if (book.edition) addMeta("Edición", book.edition + ".ª ed.");
+      addMeta("Páginas", book.pages_label);
+      addMeta("Idioma", book.language && book.language !== "sin dato" ? book.language : "");
+      if (book.primary_isbn) addMeta("ISBN", book.primary_isbn);
+      if (book.library_catalog) addMeta("Catálogo", book.library_catalog);
+
+      // Subjects
+      let subjectsHtml = "";
+      if (book.subjects && book.subjects.length) {
+        const tags = book.subjects.map(s => `<span class="modal-tag">${escHtml(s)}</span>`).join("");
+        subjectsHtml = `<p class="modal-section-title">Descriptores</p>
+          <div class="modal-tags">${tags}</div>`;
+      }
+
+      // Abstract
+      let abstractHtml = "";
+      if (book.abstract) {
+        abstractHtml = `<p class="modal-section-title">Resumen</p>
+          <p class="modal-abstract">${escHtml(book.abstract)}</p>`;
+      }
+
+      // Attachments
+      let attachHtml = "";
+      if (book.attachments && book.attachments.length) {
+        const items = book.attachments
+          .map(a => `<span class="modal-attachment-item">${escHtml(a)}</span>`)
+          .join("<br>");
+        attachHtml = `<p class="modal-section-title">Archivos adjuntos</p>
+          <div class="modal-attachments">${items}</div>`;
+      }
+
+      // Subtitle / short title
+      const subtitleHtml = book.short_title && book.short_title !== book.title
+        ? `<p class="modal-subtitle">${escHtml(book.short_title)}</p>`
+        : "";
+
+      return `
+        <div class="modal-cover-col">
+          <div style="position:sticky;top:16px">
+            ${coverHtml}
+            ${creditLine}
+            <div class="modal-nav">
+              <button class="modal-nav-btn" id="modalPrev">← anterior</button>
+              <button class="modal-nav-btn" id="modalNext">siguiente →</button>
+            </div>
+          </div>
+        </div>
+        <div class="modal-detail-col">
+          <p class="modal-series-line">${escHtml(book.series)}${book.series_number != null ? " · " + book.series_badge : ""}</p>
+          <h2 class="modal-title">${escHtml(book.title)}</h2>
+          ${subtitleHtml}
+          <div class="modal-apa">${buildApaHtml(book)}</div>
+          <dl class="modal-meta">${metaRows.join("")}</dl>
+          ${subjectsHtml}
+          ${abstractHtml}
+          ${attachHtml}
+        </div>`;
+    }
+
+    function openModal(filteredIdx) {
+      state.activeIndex = filteredIdx;
+      const book = state.filtered[filteredIdx];
+      const backdrop = document.getElementById("modalBackdrop");
+      const body = document.getElementById("modalBody");
+
+      body.innerHTML = buildModalContent(book);
+      backdrop.classList.remove("is-hidden");
+      document.body.style.overflow = "hidden";
+      document.getElementById("modal").scrollTop = 0;
+
+      // Nav buttons
+      const prevBtn = document.getElementById("modalPrev");
+      const nextBtn = document.getElementById("modalNext");
+      prevBtn.disabled = filteredIdx <= 0;
+      nextBtn.disabled = filteredIdx >= state.filtered.length - 1;
+      prevBtn.addEventListener("click", () => openModal(filteredIdx - 1));
+      nextBtn.addEventListener("click", () => openModal(filteredIdx + 1));
+    }
+
+    function closeModal() {
+      document.getElementById("modalBackdrop").classList.add("is-hidden");
+      document.body.style.overflow = "";
+      state.activeIndex = -1;
+    }
+
+    /* ── Event wiring ──────────────────────────────── */
+    document.getElementById("modalBackdrop").addEventListener("click", e => {
+      if (e.target === e.currentTarget) closeModal();
+    });
+    document.getElementById("modalClose").addEventListener("click", closeModal);
+
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape") { closeModal(); return; }
+      if (state.activeIndex < 0) return;
+      if (e.key === "ArrowLeft"  && state.activeIndex > 0)
+        openModal(state.activeIndex - 1);
+      if (e.key === "ArrowRight" && state.activeIndex < state.filtered.length - 1)
+        openModal(state.activeIndex + 1);
+    });
+
+    // Filter buttons
+    document.getElementById("filterBar").addEventListener("click", e => {
+      const btn = e.target.closest(".filter-btn");
+      if (!btn) return;
+      document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("is-active"));
+      btn.classList.add("is-active");
+      state.series = btn.dataset.series;
+      renderGrid();
+    });
+
+    // Search
+    let searchTimer;
+    document.getElementById("searchInput").addEventListener("input", e => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => {
+        state.query = e.target.value.trim();
+        renderGrid();
+      }, 180);
+    });
+
+    // Sort
+    document.getElementById("sortSelect").addEventListener("change", e => {
+      state.sort = e.target.value;
+      renderGrid();
+    });
+
+    /* ── Init ──────────────────────────────────────── */
+    renderGrid();
+  </script>
+</body>
+</html>
