@@ -1,12 +1,12 @@
 # Bibliotheca Suhrkamp de Jorge Cardiel
 
-Ejercicio de diseño editorial para mostrar la biblioteca personal de Jorge Cardiel como sitio estático en GitHub Pages.
+Sitio estático que muestra la colección personal Suhrkamp de Jorge Cardiel,
+publicado en GitHub Pages.
 
-## Archivos esenciales
+- [`index.html`](index.html) — mosaico principal con buscador.
+- [`catalogo.html`](catalogo.html) — vista tabular completa.
+- [`rockola.html`](rockola.html) — carrusel de portadas.
+- [`assets/covers/`](assets/covers/) — portadas oficiales del editor.
+- [`assets/local-covers/`](assets/local-covers/) — portadas fotografiadas.
 
-- `README.md`
-- `.gitignore`
-- `index.html`
-- `rockola.html`
-- `cover-backups/`
-- `portadas/`
+Para añadir un libro nuevo: ver [`ADDING_BOOKS.md`](ADDING_BOOKS.md).

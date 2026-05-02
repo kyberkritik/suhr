@@ -2,7 +2,10 @@
 __pycache__/
 *.pyc
 
-# Fuentes y utilidades de generación no necesarias para publicar el sitio
+# Local-only working files (photos, originals, archives, helper scripts)
+local/
+
+# Sources and generators not needed to publish the static site
 Bibliotheca Cardiel.rdf
 build_library_page.py
 download_cover_backups.py
@@ -13,6 +16,5 @@ cover-search-report.json
 cover-search-report.md
 original-years.json
 
-# Material de proceso y referencias visuales
-screenshots/
-portadas/*.original.*
+# Originals of personal photos (kept locally only)
+assets/local-covers/*.original.*
