@@ -593,6 +593,7 @@ a {
         <div class="field">
           <label for="sort-filter">Orden</label>
           <select id="sort-filter">
+            <option value="added-desc">Últimos agregados</option>
             <option value="series">Por colección</option>
             <option value="year-desc">Año descendente</option>
             <option value="author">Autoría</option>
@@ -624,7 +625,7 @@ a {
 const state = {
   query: "",
   series: "all",
-  sort: "series",
+  sort: "added-desc",
   coverage: "all",
 };
 
@@ -707,6 +708,9 @@ function filterBooks() {
 function sortBooks(books) {
   const sorted = [...books];
   sorted.sort((left, right) => {
+    if (state.sort === "added-desc") {
+      return (right.index || -1) - (left.index || -1) || collator.compare(left.title, right.title);
+    }
     if (state.sort === "year-desc") {
       return (right.year || -1) - (left.year || -1) || collator.compare(left.title, right.title);
     }
